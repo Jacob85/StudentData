@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="il.ac.shenkar.studentdata.User" table="Users">
+		<id name="email" type="text"  column="ID" >
+		</id>
+		<property name="userName">
+			<column name="username"/>
+		</property>
+		<property name="password">
+			<column name="password"/>
+		</property>
+		<property name="university">
+			<column name="university"/>
+		</property>
+		<property name="trend">
+			<column name="trend"/>
+		</property>
+		<property name="year">
+			<column name="year"/>
+		</property>
+		<property name="subject">
+			<column name="subject"/>
+		</property>
+		<property name="filesToView">
+			<column name="files_to_view"/>
+		</property>
+		<property name="filesHistory">
+			<column name="files_history"/>
+		</property>
+	</class>
+</hibernate-mapping>
