@@ -110,5 +110,22 @@ public class User
 		
 	}
 
+	public void removeFromCart(String fileName)
+	{
+		//remove the file from the file list
+		this.filesToView.replace(fileName, "");
+		//remove the duplicate separetor if exists  
+		this.filesToView.replace("%%","%");
+		//add the file i removed to the file history
+		setFilesHistory(this.getFilesHistory() + "%" + fileName);
+	}
 	
+	public void addToCart(String fileName) 
+	{
+		if (fileName == null || fileName.isEmpty())
+			return;
+		setFilesToView(getFilesToView() + "%" + fileName);
+		return;
+		
+	}
 }

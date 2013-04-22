@@ -33,5 +33,12 @@ public interface IDataBaseActions
 	 * @return list of all the records in the DB
 	 */
 	public List getAllRecords();
+	
+	/**
+	 * Update the Record in the DB 
+	 * @param toUpdate
+	 * @return i if succeed o if not
+	 */
+	public int updateRecord(Object toUpdate);
 
 }

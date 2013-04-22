@@ -32,6 +32,8 @@ public class FileSystemHandler
 		return instance;
 	}
 	
+	
+	// should get path that look like this /<university name>/<Trend name>/<year name>/<course name>
 	public int saveFile(FileItem file, String path)
 	{
 		String[] FolderHierarchy = path.split(pathBarier);

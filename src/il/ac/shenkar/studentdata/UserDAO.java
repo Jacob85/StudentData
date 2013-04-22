@@ -110,4 +110,20 @@ public class UserDAO implements IDataBaseActions
 			}
 	}
 
+	@Override
+	public int updateRecord(Object toUpdate)
+	{
+		Session session = factory.openSession();
+		try {
+			session.beginTransaction();
+			session.update((User)toUpdate);
+			session.getTransaction().commit();
+			return 1;
+		} catch (HibernateException e) 
+		{
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

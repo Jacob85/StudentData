@@ -5,6 +5,7 @@
 <hibernate-mapping>
 	<class name="il.ac.shenkar.studentdata.FileRecord" table="Files">
 		<id name="id" type="int"  column="ID" >
+		<generator class="increment"/>
 		</id>
 		<property name="university">
 			<column name="university"/>
