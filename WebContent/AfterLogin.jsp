@@ -11,6 +11,8 @@
 </head>
 
 <body>
+
+<!-- Display the user Courses List -->
 <%
 	User user= (User)session.getAttribute("user");
 	List<String> cartList=(List<String>)  session.getAttribute("cart");

@@ -69,7 +69,7 @@ public class StudentDataController extends HttpServlet
 		
 		switch (reqAction)
 		{
-		case "newuser.jsp":
+		case "register.jsp":
 		{
 			try {
 				getServletContext().getRequestDispatcher("/newuser.jsp").forward(req, resp);
@@ -83,6 +83,57 @@ public class StudentDataController extends HttpServlet
 		case "add_to_cart=true":
 		{
 			this.cartTransaction(req, resp, Cart.ADD);
+		}
+		case "cart.jsp":
+		{
+			try {
+				if (this.IsSessionValidate(req, resp))
+				{
+					HttpSession session = req.getSession();
+					User user = (User) session.getAttribute("user");
+					java.util.List<String> filesList1 = parser.getFileList(user.getFilesToView());
+					session.setAttribute("cart",filesList1);
+					getServletContext().getRequestDispatcher("/cart.jsp").forward(req, resp);		
+				}
+				else
+				{
+					//mean the user need t login first. the Session is timeout
+					getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
+				}
+			} catch (ServletException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+		case "history.jsp":
+		{
+			try {
+				if (this.IsSessionValidate(req, resp))
+				{
+					HttpSession session = req.getSession();
+					User user = (User) session.getAttribute("user");
+					java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
+					session.setAttribute("history",filesHistory);
+					getServletContext().getRequestDispatcher("/history.jsp").forward(req, resp);
+				}
+				else
+				{
+					//mean the user need t login first. the Session is timeout
+					getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
+				}
+			} catch (ServletException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+		case "about.jsp":
+		{
+			//TODO: to return something to cadan
+			return;
 		}
 		case "remove_from_cart=true":	
 			this.cartTransaction(req, resp, Cart.REMOVED);
@@ -126,47 +177,6 @@ public class StudentDataController extends HttpServlet
 		default:
 			break;
 		}
-		
-
-		
-/*		ServletContext sc = getServletContext();
-		String path = "uni/trend/year/course" + req.getPathInfo();
-		
-		
-		 // Get the absolute path of the image
-        ServletContext sc = getServletContext();
-        String path = req.getPathInfo();
-        String delims = "[/]";
-		String[] tokens = path.split(delims);
-		String filename = tokens[tokens.length-1];
-
-        // Get the MIME type of the image
-        String mimeType = "image/jpeg";
-        if (mimeType == null) {
-            sc.log("Could not get MIME type of "+filename);
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return;
-        }
-    
-        // Set content type
-        resp.setContentType(mimeType);
-    
-        File file =  FileSystemHandler.getInstande().getFile(path);
-        resp.setContentLength((int)file.length());
-        
-        
-        FileInputStream in = new FileInputStream(file);
-        OutputStream out = resp.getOutputStream();
-        
-        // Copy the contents of the file to the output stream
-        byte[] buf = new byte[1024];
-        int count = 0;
-        while ((count = in.read(buf)) >= 0) 
-        {
-            out.write(buf, 0, count);
-        }
-        in.close();
-        out.close();*/
 	}
 
 
@@ -393,6 +403,19 @@ public class StudentDataController extends HttpServlet
 			}
 		
 		}
+	public boolean IsSessionValidate(HttpServletRequest req, HttpServletResponse resp)
+	{
+		//get the session
+		HttpSession session = req.getSession();
+		
+		// check if the session is new & if the "user" atribute is attached to the object
+		if (session.isNew() || (session.getAttribute("user")==null))
+		{
+			req.setAttribute("massage","Please Login First");
+			return false;
+		}
+		return true;
+	}
 	
 	public void cartTransaction(HttpServletRequest req, HttpServletResponse resp,Cart direction)
 	{
