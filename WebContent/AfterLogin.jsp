@@ -18,6 +18,13 @@
 	List<String> userFilesList= (List<String>)session.getAttribute("userFiles");
 %>
 <nav><p class="focus">Hello <%=" "+user.getUserName() %> </p> </nav>
+	<% for (int i=0; i<cartList.size(); i++)
+		{
+		%>
+		<nav><p class="focus">Hello <%=" "+cartList.get(i) %> </p> </nav>		
+		<%
+		}
+		%>
 
 </body>
 </html>

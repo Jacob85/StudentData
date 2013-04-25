@@ -22,7 +22,54 @@ nav {
 	top: 10px;
 	left: 10px;
 }
-
+#filestable
+{
+	
+	
+}
+#filestable tr td
+{
+	border:none;
+}
+#filestable tr td a
+{
+	font-weight: bold;
+	text-decoration: none;
+	opacity: .6;
+	-moz-transition: all .4s;
+}
+#filestable tr td a:hover
+{
+		opacity: .9;
+}
+#menuitem
+{
+	position:absolute;
+	top:140px;
+	color: #4889C2;
+	font-weight: bold;
+	text-decoration: none;
+	opacity: .4;
+	-moz-transition: all .4s;
+	
+}
+#menuitem:hover
+{
+	opacity: .9;
+}
+.tabBar
+{
+	position: absolute;
+	left: 134px;
+	top: 150px;
+	width: 800px;
+	height: 1px;
+	background: white;
+	border-radius: 3px;
+	box-shadow: 0 0 10px rgba(0,0,0, .4);
+	text-align: center;
+	padding-top: 1px;
+}
 nav a {
 	color: #4889C2;
 	font-weight: bold;
