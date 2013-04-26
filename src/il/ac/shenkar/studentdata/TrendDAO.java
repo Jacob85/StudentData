@@ -65,17 +65,18 @@ public class TrendDAO implements IDataBaseActions
 	}
 
 	@Override
-	public List getAllRecords()
+	public java.util.List getAllRecords()
 	{
 		logger.info("getAllRecords was called");
 		Session session = factory.openSession();
 		try {
 			session.beginTransaction();
-			List list = (List) session.createQuery("from trends").list();
+			java.util.List list = session.createQuery("from Trend").list();
 			session.getTransaction().commit();
 			logger.info("Query success, return list of all trend Records");
 			return list;
 			} catch (Exception e){
+				e.printStackTrace();
 				if ( session.getTransaction() != null )
 					session.getTransaction().rollback();
 				logger.error("Query failed return null");

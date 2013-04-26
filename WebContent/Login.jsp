@@ -10,7 +10,7 @@
 
 <body>
 
-<nav><a href="#" class="focus">Log In</a> | <a href="/StudentData/register.jsp">Register</a></nav>
+<nav><a href="#" class="focus">Log In</a> | <a href="StudentData/register.jsp">Register</a></nav>
 <%
 	String message= (String)request.getAttribute("message");
 %>

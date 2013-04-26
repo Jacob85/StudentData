@@ -5,32 +5,48 @@ import java.util.ArrayList;
 
 import org.hibernate.mapping.List;
 
+import sun.misc.JavaUtilJarAccess;
+
 public class Register implements Serializable
 {
-	private List unis;
-	private List trends;
+	private java.util.List<String> unis;
+	private java.util.List<String> trends;
 	
 	
 	public Register() {
-		super();
+		unis = new ArrayList<String>();
+		trends = new ArrayList<String>();
 	}
-	public List getUnis() {
+		
+	public java.util.List<String> getUnis() {
 		return unis;
 	}
-	public void setUnis(List unis) {
+
+	public void setUnis(ArrayList<String> unis) {
 		this.unis = unis;
 	}
-	public List getTrends() {
+
+	public java.util.List<String> getTrends() {
 		return trends;
 	}
-	public void setTrends(List trends) {
+
+	public void setTrends(ArrayList<String> trends) {
 		this.trends = trends;
 	}
-	
+
 	public void getLists()
 	{
-		this.unis = UniDAO.getInstance().getAllRecords();
-		this.trends = TrendDAO.getInstance().getAllRecords();
+		java.util.List<UniRecord> unilist = (java.util.List<UniRecord>) UniDAO.getInstance().getAllRecords();
+		for (UniRecord record: unilist)
+		{
+			unis.add(new String(record.getUniname()));
+		}
+		
+		java.util.List<Trend> trendList = (java.util.List<Trend>) TrendDAO.getInstance().getAllRecords();
+		for(Trend trend: trendList)
+		{
+			trends.add(new String(trend.getTrendName()));
+		}
 	}
 	
 }

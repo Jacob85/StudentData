@@ -1,11 +1,12 @@
 package il.ac.shenkar.studentdata;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
-import org.hibernate.mapping.List;
 
 public class UniDAO implements IDataBaseActions 
 {
@@ -69,10 +70,10 @@ public class UniDAO implements IDataBaseActions
 		Session session = factory.openSession();
 		try {
 			session.beginTransaction();
-			List list = (List) session.createQuery("from unis").list();
+			List list = session.createQuery("from UniRecord").list();
 			session.getTransaction().commit();
 			logger.info("Query success, return list of all uni Records");
-			return list;
+			return  list;
 			} catch (Exception e){
 				if ( session.getTransaction() != null )
 					session.getTransaction().rollback();

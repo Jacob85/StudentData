@@ -155,13 +155,13 @@ public class FileRecordDAO implements IDataBaseActions
 		}
 
 		@Override
-		public List getAllRecords() 
+		public java.util.List getAllRecords() 
 		{
 			logger.info("getAllRecords was called");
 			Session session = factory.openSession();
 			try {
 				session.beginTransaction();
-				List list = (List) session.createQuery("from files").list();
+				java.util.List list = session.createQuery("from files").list();
 				session.getTransaction().commit();
 				logger.info("Query success, return list of all File Records");
 				return list;

@@ -32,7 +32,7 @@ public interface IDataBaseActions
 	 *Get all the Records in the DB 
 	 * @return list of all the records in the DB
 	 */
-	public List getAllRecords();
+	public java.util.List getAllRecords();
 	
 	/**
 	 * Update the Record in the DB 

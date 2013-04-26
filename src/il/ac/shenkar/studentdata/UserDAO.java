@@ -91,12 +91,12 @@ public class UserDAO implements IDataBaseActions
 	}
 
 	@Override
-	public List getAllRecords() 
+	public java.util.List getAllRecords() 
 	{
 		Session session = factory.openSession();
 		try {
 			session.beginTransaction();
-			List list = (List) session.createQuery("from Users").list();
+			java.util.List list = session.createQuery("from Users").list();
 			session.getTransaction().commit();
 			return list;
 			} catch (Exception e){
