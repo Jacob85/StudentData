@@ -5,8 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
-
-<link rel="stylesheet" href="לימודים/שנה ג/java ee/StudentData/WebContent/css/style.css">
+<link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
+</head>
+<body>
 <%
 	User user= (User)session.getAttribute("user");
 	List<String> cartList=(List<String>)  session.getAttribute("cart");
@@ -17,7 +18,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;">Hello <%=" "+user.getUserName() %>|<a href="#"> Log out</a> </p> </nav>
+	-moz-transition: all .4s;">Hello <%=" "+user.getUserName() %>|<a href="#"> Log out</a> </p> 
 <p  class="focus" style="text-decoration:none; position: absolute; left: 883px; top: 050px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;

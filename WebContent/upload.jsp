@@ -33,6 +33,36 @@
 <a id="menuitem" href="# " style="left: 704px;">About</a>
         <p class="tabBar"></p>
         
+        
+        <form action="StudentData/uni/trend/a/course2/upload=true" method="post" enctype="multipart/form-data" 
+name="productForm" id="productForm"><br><br>
+<table width="400px" align="center" border=0 style="background-color:ffeeff;">
+<tr>
+<td align="center" colspan=2 style="font-weight:bold;font-size:20pt;">
+Image Details</td>
+</tr>
+
+<tr>
+<td align="center" colspan=2>&nbsp;</td>
+</tr>
+
+<tr>
+<td>Image Link: </td>
+<td>
+<input type="file" name="file" id="file">
+<td>
+</tr>
+
+<tr>
+<td></td>
+<td><input type="submit" name="Submit" value="Submit"></td>
+</tr>
+<tr>
+<td colspan="2">&nbsp;</td>
+</tr>
+
+</table>
+</form>
     <div style="position: absolute; left: 471px; top: 308px;">
 
 <table  id="filestable" style="border:none"  width="200" border="1">

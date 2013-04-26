@@ -1,5 +1,6 @@
 package il.ac.shenkar.studentdata;
 
+
 import java.awt.List;
 import java.io.File;
 import java.io.FileInputStream;
@@ -72,17 +73,26 @@ public class StudentDataController extends HttpServlet
 		case "register.jsp":
 		{
 			try {
-				getServletContext().getRequestDispatcher("/newuser.jsp").forward(req, resp);
+				// get the Register Ob 
+				Register register = new Register();
+				register.getLists();
+				// attached the register OB to the Session OB
+				req.getSession().setAttribute("register", register);
+				// Forward the User to register.jsp
+				logger.info("Forword request to register.jsp");
+				getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
 				return;
 			} catch (ServletException e) 
 			{
 				e.printStackTrace();
+				logger.error("ServletException: " + e.getMessage()+ " Url Received: "+req.getRequestURI());
 			}
 			break;
 		}
 		case "add_to_cart=true":
 		{
 			this.cartTransaction(req, resp, Cart.ADD);
+			return;
 		}
 		case "cart.jsp":
 		{
@@ -90,14 +100,16 @@ public class StudentDataController extends HttpServlet
 				if (this.IsSessionValidate(req, resp))
 				{
 					HttpSession session = req.getSession();
-					User user = (User) session.getAttribute("user");
-					java.util.List<String> filesList1 = parser.getFileList(user.getFilesToView());
-					session.setAttribute("cart",filesList1);
-					getServletContext().getRequestDispatcher("/cart.jsp").forward(req, resp);		
+					User user = (User) session.getAttribute("user");										// get the user OB from the Session
+					logger.info("call getFileList with files to view" );
+					java.util.List<String> filesList1 = parser.getFileList(user.getFilesToView());			//get the files list to display the cart 
+					session.setAttribute("cart",filesList1);												// attached the File List to the Session
+					getServletContext().getRequestDispatcher("/cart.jsp").forward(req, resp);				// forward the request to cart.jsp
 				}
 				else
 				{
 					//mean the user need t login first. the Session is timeout
+					logger.info("Session timeout or new session, forword the user to login");
 					getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
 				}
 			} catch (ServletException e) 
@@ -113,14 +125,16 @@ public class StudentDataController extends HttpServlet
 				if (this.IsSessionValidate(req, resp))
 				{
 					HttpSession session = req.getSession();
-					User user = (User) session.getAttribute("user");
-					java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
-					session.setAttribute("history",filesHistory);
-					getServletContext().getRequestDispatcher("/history.jsp").forward(req, resp);
+					User user = (User) session.getAttribute("user");									// get the user OB from the Session
+					logger.info("call getFileList with files history");
+					java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());	//get the files list to display the user file history 
+					session.setAttribute("history",filesHistory);										// attached the File List to the Session
+					getServletContext().getRequestDispatcher("/history.jsp").forward(req, resp);		// forward the request to history.jsp
 				}
 				else
 				{
 					//mean the user need t login first. the Session is timeout
+					logger.info("Session timeout or new session, forword the user to login");
 					getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
 				}
 			} catch (ServletException e) 
@@ -294,7 +308,47 @@ public class StudentDataController extends HttpServlet
 				return;
 			}	
 		}
-		
+		case "addUnis":
+		{
+			// get the unies string from the form
+			String uniString = req.getParameter("unis");
+			if (uniString == null)
+			{
+				resp.sendRedirect(req.getHeader("referer"));
+			}
+			// split the string into Unis
+			String [] unies = uniString.split(",");
+			UniRecord record;
+			for (int j =0; j<unies.length; j++)
+			{
+				record = new UniRecord();
+				record.setUniname(unies[j]);
+				UniDAO.getInstance().addRecord(record);
+			}
+			resp.sendRedirect(req.getHeader("referer"));
+			return;
+		}
+		case "addTrends":
+		{
+			// get the trends string from the form
+			String trendString = req.getParameter("trends");
+			if (trendString == null)
+			{
+				resp.sendRedirect(req.getHeader("referer"));
+				logger.info("input was empty");
+			}
+			// split the string into Trends
+			String [] trends = trendString.split(",");
+			Trend record;
+			for (int j =0; j<trends.length; j++)
+			{
+				record = new Trend();
+				record.setTrendName(trends[j]);
+				TrendDAO.getInstance().addRecord(record);
+			}
+			resp.sendRedirect(req.getHeader("referer"));
+			return;
+		}
 		case "upload=true":
 		{
 			HttpSession session = req.getSession();
@@ -324,13 +378,16 @@ public class StudentDataController extends HttpServlet
 			}
 			//get the file path 
 			String path = parser.getFilePath(req.getRequestURI());
-		/*	path look like this uni/trend/year/course/filename.txt*/
+		/*	path look like this uni/trend/year/course*/
+		
 			
 			try {
 				
 				ServletFileUpload upload = new ServletFileUpload(factory);
 				java.util.List<FileItem> items = upload.parseRequest(req);
 				
+				// add th file name to the path
+				path = path +"/"+ items.get(0).getName();
 				//save the file to the server file system
 				if (FileSystemHandler.getInstande().saveFile(items.get(0),path) == 1)
 				{	
@@ -339,10 +396,10 @@ public class StudentDataController extends HttpServlet
 					FileRecord record = new FileRecord();
 					record.setPath(path);
 					record.setRating(0);
-					record.setSubject(fileData[3]);
-					record.setTrend(fileData[1]);
-					record.setUniversity(fileData[0]);
-					record.setYear(fileData[2]);
+					record.setSubject(fileData[4]);
+					record.setTrend(fileData[2]);
+					record.setUniversity(fileData[1]);
+					record.setYear(fileData[3]);
 					FileRecordDAO.getInstance().addRecord(record);
 					//forword the reuqest to after login again
 					req.setAttribute("massage","File: " +fileData[fileData.length-1] +" was upload sucssesfuly!");
@@ -369,7 +426,7 @@ public class StudentDataController extends HttpServlet
 		
 		
 		
-		String path = "uni/trend/year/course";
+/*		String path = "uni/trend/year/course";
 		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
 		System.out.println("request: "+req);
 		if (!isMultipart)
@@ -401,7 +458,7 @@ public class StudentDataController extends HttpServlet
 				e.printStackTrace();
 			}
 			}
-		
+		*/
 		}
 	public boolean IsSessionValidate(HttpServletRequest req, HttpServletResponse resp)
 	{

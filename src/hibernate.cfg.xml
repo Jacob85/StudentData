@@ -17,5 +17,7 @@
 		<!-- Mapping files -->
 		<mapping resource="files.hbm.xml"/>
 		<mapping resource="users.hbm.xml"/>
+		<mapping resource="unis.hbm.xml"/>
+		<mapping resource="trends.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>
