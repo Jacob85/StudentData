@@ -12,6 +12,7 @@
 
 <nav><a href="#" class="focus">Log In</a> | <a href="StudentData/register.jsp">Register</a></nav>
 <%
+	//if the login was failed than we get a massage.
 	String message= (String)request.getAttribute("message");
 %>
 <form method="post" action="StudentData/loginto">
@@ -24,10 +25,12 @@
     <input  type="submit" value="Log In" class="button" /><br><br>
    Remember me <input type="checkbox" value="remember_me"/>
    <br><br>
-   <%if(message!=null)
-	   {
-	   	out.write(message);
-	   }
+   <%
+  		 if(message!=null)
+	   	 {
+	   		out.write(message);
+	  	 }
+   
 	   %>
 
 </form>

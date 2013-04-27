@@ -23,7 +23,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;"><a href="#" >Todo</a> </p>
+	-moz-transition: all .4s;"><a href=" http://localhost:8080/StudentData/StudentData/cart.jsp" >Todo</a> </p>
 <p  class="focus" style="position: absolute; left: 883px; top: 77px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
