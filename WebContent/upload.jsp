@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
 </head>
 <body>
-
+<%
+	Register r=(Register)session.getAttribute("register");
+%>
 <p  class="focus" style="position: absolute; left: 5%; top: 050px; width: 137px; height: 34px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
@@ -34,7 +36,7 @@
         
        <div style="position: absolute; left: 42%; top: 101px;"> 
        <p class="focus" style="position: absolute; left: 106px; top: 149px; width: 65px; height: 21px;"><strong>Upload</strong></p>
-        <form action="StudentData/uni/trend/a/course2/upload=true" method="post" enctype="multipart/form-data" 
+        <form action="StudentData/upload=true" method="post" enctype="multipart/form-data" 
 name="productForm" id="productForm"><br><br>
 
 <table>
@@ -44,7 +46,40 @@ name="productForm" id="productForm"><br><br>
 </td>
 </tr>
 <tr>
-<td><input type="text"  name="email"  class="text-field" placeholder="Description" /></td>
+<td><input type="text"  name="description"  class="text-field" placeholder="Description" /></td>
+</tr>
+<tr>
+<td>
+<select style="width: 245px; height: 50px" name="uni" class="text-field"  id="Select1">
+    <%
+    	for(String uni:r.getUnis())
+    	{
+    		out.write("<option class='text-field'  value="+'\''+uni+'\''+">");
+    		out.write(uni);
+    		out.write("</option>");
+    	}
+    %>
+    </select>
+    <select style="width: 245px; height: 50px" name="year" class="text-field"  id="Select1">
+    <option class="text-field"   value="a">Fist year</option>
+    <option class="text-field"   value="b">Second year</option>
+    <option class="text-field"  value="c">Third year</option>
+    <option class="text-field"  value="d">Forth year</option>
+	</select>
+        <select style="width: 245px; height: 50px" name="trend" class="text-field"  id="Select1">
+    <%
+    	for(String trend:r.getTrends())
+    	{
+    		out.write("<option class='text-field'  value="+'\''+trend+'\''+">");
+    		out.write(trend);
+    		out.write("</option>");
+    	}
+    %>
+    </select>
+</td>
+</tr>
+<tr>
+<td><input type="text"  name="course"  class="text-field" placeholder="Course" /></td>
 </tr>
 <tr>
 <td><input class="button"  type="submit" name="Submit" value="Submit"></td>

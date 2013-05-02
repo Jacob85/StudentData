@@ -32,6 +32,7 @@ import org.apache.tomcat.util.buf.UDecoder;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -382,7 +383,7 @@ public class StudentDataController extends HttpServlet
 			try {
 				
 				ServletFileUpload upload = new ServletFileUpload(factory);
-				java.util.List<FileItem> items = upload.parseRequest(req);
+				java.util.List<FileItem> items = upload.parseRequest((RequestContext) req);
 				
 				//create the file
 				FileRecord record = new FileRecord();
