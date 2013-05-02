@@ -22,8 +22,8 @@
 		<property name="path">
 			<column name="path"/>
 		</property>
-		<property name="rating" type="int">
-			<column name="rating"/> 
+		<property name="description">
+			<column name="description"/> 
 		</property>
 	</class>
 </hibernate-mapping>

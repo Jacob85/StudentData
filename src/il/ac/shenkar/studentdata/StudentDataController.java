@@ -376,9 +376,7 @@ public class StudentDataController extends HttpServlet
 				resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
 				return;
 			}
-			//get the file path 
-			String path = parser.getFilePath(req.getRequestURI());
-		/*	path look like this uni/trend/year/course*/
+		
 		
 			
 			try {
@@ -386,23 +384,27 @@ public class StudentDataController extends HttpServlet
 				ServletFileUpload upload = new ServletFileUpload(factory);
 				java.util.List<FileItem> items = upload.parseRequest(req);
 				
-				// add th file name to the path
+				//create the file
+				FileRecord record = new FileRecord();
+				record.setDescription((String)req.getAttribute("description"));
+				record.setSubject((String) req.getAttribute("course"));
+				record.setTrend((String)req.getAttribute("trend"));
+				record.setUniversity((String) req.getAttribute("uni"));
+				record.setYear((String)req.getAttribute("year"));
+				//get the file path 
+				/*	path look like this uni/trend/year/course*/
+				String path = record.builtPath();
+				record.setPath(path);
+				
+				// add the file name to the path
 				path = path +"/"+ items.get(0).getName();
 				//save the file to the server file system
 				if (FileSystemHandler.getInstande().saveFile(items.get(0),path) == 1)
 				{	
-					//after the file is saved to the file system we need to add the record to the DB
-					String[] fileData = path.split("/");
-					FileRecord record = new FileRecord();
-					record.setPath(path);
-					record.setRating(0);
-					record.setSubject(fileData[4]);
-					record.setTrend(fileData[2]);
-					record.setUniversity(fileData[1]);
-					record.setYear(fileData[3]);
+					//after the file is saved to the file system we need to add the record to the DB	
 					FileRecordDAO.getInstance().addRecord(record);
 					//forword the reuqest to after login again
-					req.setAttribute("massage","File: " +fileData[fileData.length-1] +" was upload sucssesfuly!");
+					req.setAttribute("massage","File: " +items.get(0).getName() +" was upload sucssesfuly!");
 					req.getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
 					return;
 				}

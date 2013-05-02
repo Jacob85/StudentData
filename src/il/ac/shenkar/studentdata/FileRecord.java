@@ -8,7 +8,7 @@ public class FileRecord
 	private String year;
 	private String subject;
 	private String path;
-	private int rating;
+	private String description;
 	
 	public  FileRecord() 
 	{
@@ -16,7 +16,7 @@ public class FileRecord
 	}
 
 	public FileRecord(int id, String university, String trend, String year,
-			String subject, String path, int rating) {
+			String subject, String path, String description) {
 		super();
 		this.id = id;
 		this.university = university;
@@ -24,7 +24,7 @@ public class FileRecord
 		this.year = year;
 		this.subject = subject;
 		this.path = path;
-		this.rating = rating;
+		this.description = description;
 	}
 
 	public int getId() {
@@ -75,12 +75,24 @@ public class FileRecord
 		this.path = path;
 	}
 
-	public int getRating() {
-		return rating;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setRating(int rating) {
-		this.rating = rating;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String builtPath()
+	{
+		/*	path look like this uni/trend/year/course*/
+		StringBuilder builder = new StringBuilder();
+		builder.append(this.university + "/");
+		builder.append(this.trend + "/");
+		builder.append(this.year + "/");
+		builder.append(this.subject + "/");
+		
+		return builder.toString();
 	}
 
 	
