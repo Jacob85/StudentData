@@ -7,10 +7,10 @@
 			com.mysql.jdbc.Driver
 		</property>
 		<property name="hibernate.connection.url">
-			jdbc:mysql://db4free.net:3306/student
+			jdbc:mysql://sql2.freemysqlhosting.net:3306/sql27441
 		</property>
-		<property name="hibernate.connection.username">jacob</property>
-		<property name="hibernate.connection.password">Aa123456</property>
+		<property name="hibernate.connection.username">sql27441</property>
+		<property name="hibernate.connection.password">eD6%sD1*</property>
 		<property name="show_sql">true</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>

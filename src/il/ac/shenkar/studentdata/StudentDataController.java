@@ -253,13 +253,13 @@ public class StudentDataController extends HttpServlet
 		case "register":
 		{
 			//first i'll check if the user is already exists
-			if (UserDAO.getInstance().isExist(req.getParameter("email")))
+			/*if (UserDAO.getInstance().isExist(req.getParameter("email")))
 			{
 				// user is already exists
 				req.setAttribute("massage","User "+ req.getParameter("email") +" is allready exists");
 				getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
 				return;
-			}
+			}*/
 			// the use entered his details and we need to register him to the system
 			//TODO all of the validation of the form are performed in the client side, here i do not dial with it
 			User newUser = new User();
