@@ -10,7 +10,7 @@
 </head>
 <body>
 <%
-	Register r=(Register)session.getAttribute("register");
+	 Register r=(Register)session.getAttribute("register");
 %>
 <p  class="focus" style="position: absolute; left: 5%; top: 050px; width: 137px; height: 34px;color: #4889C2;
 	font-weight: bold;
