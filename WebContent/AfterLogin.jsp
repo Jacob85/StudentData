@@ -30,7 +30,7 @@
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done</a> </p>
 <a id="menuitem" href="#" style=" left: 338px;opacity:.9">Home Page</a>
-<a id="menuitem" href="/StudentData/upload.jsp" style=" left: 538px;">Upload</a>
+<a id="menuitem" href="StudentData/upload.jsp" style=" left: 538px;">Upload</a>
 <a id="menuitem" href="# " style="left: 704px;">About</a>
         <p class="tabBar"></p>
         
