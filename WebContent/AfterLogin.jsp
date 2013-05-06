@@ -14,7 +14,7 @@
 	List<String> historylist = (List<String>) session.getAttribute("history");
 	List<String> subjects= (List<String>)session.getAttribute("subjects");
 %>
-<p  class="focus" style="position: absolute; left: 10%; top: 050px; width: 137px; height: 34px;color: #4889C2;
+<p  class="focus" style="position: absolute; left: 5%; top: 050px; width: 137px; height: 34px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
@@ -30,9 +30,9 @@
 	text-decoration: none;
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done</a> </p>
-<a id="menuitem" href="StudentData/homePage.jsp" style=" left: 40%;opacity:.9">Home Page</a>
+<a id="menuitem" href="#" style=" left: 30%;opacity:.9">Home Page</a>
 <a id="menuitem" href="StudentData/upload.jsp" style=" left: 50%;">Upload</a>
-<a id="menuitem" href="# " style="left: 60%;">About</a>
+<a id="menuitem" href="# " style="left: 70%;">About</a>
         <p class="tabBar"></p>
         	<div id="headLine"> My Cources</div>
     <div style="position: absolute; left: 50%; top: 308px;">

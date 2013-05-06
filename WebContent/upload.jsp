@@ -28,9 +28,9 @@
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done</a> </p>
 	<div id="menues">
-<a id="menuitem" href="StudentData/cart.jsp" style="left: 40%;"> Home Page </a>
+<a id="menuitem" href="StudentData/homePage.jsp" style="left: 30%;"> Home Page </a>
 <a id="menuitem" href="#" style=" left: 50%; opacity:.9">Upload</a>
-<a id="menuitem" href="# " style="left: 60%;">About</a>
+<a id="menuitem" href="# " style="left: 70%;">About</a>
 </div>
 <p class="tabBar"></p>
         
