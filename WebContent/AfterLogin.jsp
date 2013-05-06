@@ -30,11 +30,11 @@
 	text-decoration: none;
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done</a> </p>
-<a id="menuitem" href="#" style=" left: 40%;opacity:.9">Home Page</a>
+<a id="menuitem" href="StudentData/homePage.jsp" style=" left: 40%;opacity:.9">Home Page</a>
 <a id="menuitem" href="StudentData/upload.jsp" style=" left: 50%;">Upload</a>
 <a id="menuitem" href="# " style="left: 60%;">About</a>
         <p class="tabBar"></p>
-        	<div id="headLine">My Cources</div>
+        	<div id="headLine"> My Cources</div>
     <div style="position: absolute; left: 50%; top: 308px;">
 <table  id="filestable" style="border:none"  width="200px" border="1">
 <% 

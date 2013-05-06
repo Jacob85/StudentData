@@ -29,8 +29,8 @@
 	text-decoration: none;
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done</a> </p>
-<a id="menuitem" href="#" style=" left: 338px;">Home Page</a>
-<a id="menuitem" href="#" style=" left: 538px;">Upload</a>
+<a id="menuitem" href="StudentData/homePage.jsp" style=" left: 338px;">Home Page</a>
+<a id="menuitem" href="StudentData/upload.jsp" style=" left: 538px;">Upload</a>
 <a id="menuitem" href="# " style="left: 704px;">About</a>
 <div id="headLine">
 	<%
