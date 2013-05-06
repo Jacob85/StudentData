@@ -171,6 +171,26 @@ public class StudentDataController extends HttpServlet
 			//TODO: to return something to cadan
 			return;
 		}
+		case "homePage.jsp":
+		{
+			try
+			{
+				if (this.IsSessionValidate(req, resp))
+				{
+					//forword to After Login
+					logger.info("Forward to /AfterLogin.jsp");
+					getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
+				}
+				//mean the user need t login first. the Session is timeout
+				logger.info("Session timeout or new session, forword the user to login");
+				getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
+				return;
+			}catch (ServletException e)
+			{
+				logger.error("Cannot Forward to, requesr failed");
+				return;
+			}
+		}
 		case "get_files=true":
 		{
 			try {
@@ -184,22 +204,19 @@ public class StudentDataController extends HttpServlet
 					HttpSession currSession = req.getSession();
 					java.util.List userFiles = (java.util.List) currSession.getAttribute("userFiles");
 					ArrayList<FileRecord> courseFilesList = new FileRecord().getFilesWithCourse((ArrayList<FileRecord>) userFiles, course);
-					currSession.setAttribute("userFiles", courseFilesList);
+					//attache the Objects to the Session Object
+					currSession.setAttribute("courseFiles", courseFilesList);
+					currSession.setAttribute("massage", course);
 					
-				/*	String[] columns = {"university", "trend","year"};
-					String[] conditionls = {newUser.getUniversity(), newUser.getTrend(), newUser.getYear()};
-					java.util.List userFiles = FileRecordDAO.getInstance().getRecordsWhere(columns, conditionls);
-					
-					HttpSession currSession = req.getSession();
-					currSession.setAttribute("userFiles", filesList);*/
-					
-					//mean the user need t login first. the Session is timeout
-					logger.info("Session timeout or new session, forword the user to login");
-					getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
+					// forward to File pages 
+					logger.info("forward to File pages");
+					getServletContext().getRequestDispatcher("/FilesPage.jsp").forward(req, resp);
+					return;
 				}
 				}catch (ServletException e)
 				{
-					
+					logger.error("Cannot Forward to, requesr failed");
+					return;
 				}
 		}
 		case "remove_from_cart=true":	
