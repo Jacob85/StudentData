@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
-<link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
+<link rel="stylesheet" href="https://studentportal-jscapps.rhcloud.com/StudentData/css/style.css">
 </head>
 <body>
 <%
@@ -23,7 +23,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;"><a href=" http://localhost:8080/StudentData/StudentData/cart.jsp" >Todo</a> </p>
+	-moz-transition: all .4s;"><a href="StudentData/cart.jsp" >Todo</a> </p>
 <p  class="focus" style="position: absolute; left: 883px; top: 77px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
@@ -38,7 +38,7 @@
 
 <table  id="filestable" style="border:none"  width="200px" border="1">
 <% 
-	String subjectUrl="http://localhost:8080/StudentData/StudentData"+ user.getUniversity()+"/"
+	String subjectUrl="StudentData"+ user.getUniversity()+"/"
 						+user.getTrend()+"/"+user.getYear()+"/";
 	for(String subject : subjects)
 	{

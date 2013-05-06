@@ -45,9 +45,9 @@ public class UserDAO implements IDataBaseActions
 	@Override
 	public int addRecord(Object toAdd) 
 	{
+		Session session = factory.openSession();
 		try {
 			// creating a new session for adding products
-			Session session = factory.openSession();
 			session.beginTransaction();
 			session.save((User)toAdd);
 			session.getTransaction().commit();
@@ -56,6 +56,7 @@ public class UserDAO implements IDataBaseActions
 		} catch (HibernateException e) 
 		{
 			// TODO: maybe write to log file
+			session.close();
 			e.printStackTrace();
 			return 0;
 		}	
@@ -75,6 +76,7 @@ public class UserDAO implements IDataBaseActions
 				session.close();
 				return found;
 			}
+			session.close();
 		}
 		return null;
 	}
@@ -85,6 +87,7 @@ public class UserDAO implements IDataBaseActions
 		session.beginTransaction();
 		Query query = session.createQuery("FROM User WHERE id = :id").setParameter("id",id);
 		java.util.List list = query.list();
+		session.close();
 		if (list.size() > 0)
 			return true;
 		return false;
@@ -118,9 +121,11 @@ public class UserDAO implements IDataBaseActions
 			session.beginTransaction();
 			session.update((User)toUpdate);
 			session.getTransaction().commit();
+			session.close();
 			return 1;
 		} catch (HibernateException e) 
 		{
+			session.close();
 			e.printStackTrace();
 		}
 		return 0;

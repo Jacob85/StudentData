@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Log In</title>
 
-<link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
+<link rel="stylesheet" href="https://studentportal-jscapps.rhcloud.com/StudentData/css/style.css">
 </head>
 <body>
 <%
@@ -21,14 +21,14 @@
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;"><a href=" http://localhost:8080/StudentData/StudentData/cart.jsp" >Todo</a> </p>
+	-moz-transition: all .4s;"><a href="StudentData/cart.jsp" >Todo</a> </p>
 <p  class="focus" style="position: absolute;left: 90%; top: 77px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done</a> </p>
 	<div id="menues">
-<a id="menuitem" href="http://localhost:8080/StudentData/StudentData/cart.jsp" style="left: 40%;"> Home Page </a>
+<a id="menuitem" href="StudentData/cart.jsp" style="left: 40%;"> Home Page </a>
 <a id="menuitem" href="#" style=" left: 50%; opacity:.9">Upload</a>
 <a id="menuitem" href="# " style="left: 60%;">About</a>
 </div>

@@ -68,10 +68,10 @@ public class FileRecordDAO implements IDataBaseActions
 		@Override
 		 public int addRecord(Object toAdd)
 		 {
+			Session session = factory.openSession();
 			try {
 				logger.info("addRecord was called");
 				// creating a new session for adding products
-				Session session = factory.openSession();
 				session.beginTransaction();
 				session.save((FileRecord)toAdd);
 				logger.info("Saving File Record");
@@ -81,6 +81,7 @@ public class FileRecordDAO implements IDataBaseActions
 				return 1;
 			} catch (HibernateException e) 
 			{
+				session.close();
 				logger.error("Save File Record Failed, return 0");
 				e.printStackTrace();
 				return 0;
@@ -106,6 +107,7 @@ public class FileRecordDAO implements IDataBaseActions
 			session.beginTransaction();
 			Query query = session.createQuery(builder.toString());
 			java.util.List list = query.list();
+			session.close();
 			return  list;
 		}
 
@@ -125,6 +127,7 @@ public class FileRecordDAO implements IDataBaseActions
 				session.close();
 				return found;
 			}
+			session.close();
 			logger.error("File Record not found, return null");
 			return null;	
 		}
@@ -186,10 +189,12 @@ public class FileRecordDAO implements IDataBaseActions
 				session.beginTransaction();
 				session.update((FileRecord)toUpdate);
 				session.getTransaction().commit();
+				session.close();
 				logger.info("File Record was updated, return 1");
 				return 1;
 			} catch (HibernateException e) 
 			{
+				session.close();
 				logger.error("File Update Failed, return 0");
 				e.printStackTrace();
 			}
