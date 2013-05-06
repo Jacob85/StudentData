@@ -50,13 +50,14 @@ public class StudentDataController extends HttpServlet
 	{
 		parser = new RequestParser();
 		factory = new DiskFileItemFactory();
+		//configure the logger OB
+		BasicConfigurator.configure();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
-		//configure the logger OB
-		BasicConfigurator.configure();
+		
 		
 		String reqAction = parser.getRequestedAction(req.getRequestURI());
 		if (reqAction.equals("Login.jsp"))
@@ -94,6 +95,26 @@ public class StudentDataController extends HttpServlet
 		{
 			this.cartTransaction(req, resp, Cart.ADD);
 			return;
+		}
+		case "upload.jsp":
+		{
+			try {
+				//TODO: check if the session didn't timeout
+				Register register = new Register();
+				register.getLists();
+				// attached the register OB to the Session OB
+				req.getSession().setAttribute("register", register);
+				// add log comment
+				logger.info("register object attached to the Session OB \nforward to upload.jsp");
+				getServletContext().getRequestDispatcher("/upload.jsp").forward(req, resp);
+				return;
+			} catch (Exception e) {
+				// TODO: handle exception
+				logger.error("faild to forword to /upload.jsp");
+				return;
+			}
+			
+			
 		}
 		case "cart.jsp":
 		{
@@ -198,8 +219,7 @@ public class StudentDataController extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException 
 	{
-		//configure the logger OB
-		BasicConfigurator.configure();
+		
 		
 		String reqAction = parser.getRequestedAction(req.getRequestURI());
 		
@@ -383,22 +403,26 @@ public class StudentDataController extends HttpServlet
 			try {
 				
 				ServletFileUpload upload = new ServletFileUpload(factory);
-				java.util.List<FileItem> items = upload.parseRequest((RequestContext) req);
+				java.util.List<FileItem> items = upload.parseRequest(req);
 				
 				//create the file
 				FileRecord record = new FileRecord();
-				record.setDescription((String)req.getAttribute("description"));
-				record.setSubject((String) req.getAttribute("course"));
-				record.setTrend((String)req.getAttribute("trend"));
-				record.setUniversity((String) req.getAttribute("uni"));
-				record.setYear((String)req.getAttribute("year"));
+				System.out.println("Field name: "+items.get(2).getFieldName());
+				System.out.println("get name: "+items.get(2).getName());
+				System.out.println("get string "+items.get(2).getString());
+				record.setDescription(items.get(1).getString());
+				record.setSubject(items.get(5).getString());
+				record.setTrend(items.get(4).getString());
+				record.setUniversity( items.get(2).getString());
+				record.setYear(items.get(3).getString());
 				//get the file path 
 				/*	path look like this uni/trend/year/course*/
 				String path = record.builtPath();
+				// add the file name to the path
+				path = path + items.get(0).getName();
 				record.setPath(path);
 				
-				// add the file name to the path
-				path = path +"/"+ items.get(0).getName();
+			
 				//save the file to the server file system
 				if (FileSystemHandler.getInstande().saveFile(items.get(0),path) == 1)
 				{	

@@ -24,7 +24,7 @@
     <%
     	for(String uni:r.getUnis())
     	{
-    		out.write("<option class='text-field'  value="+'\''+uni+'\''+">");
+    		out.write("<option class='text-field'  value='"+uni+"'>");
     		out.write(uni);
     		out.write("</option>");
     	}
@@ -40,7 +40,7 @@
     <%
     	for(String trend:r.getTrends())
     	{
-    		out.write("<option class='text-field'  value="+'\''+trend+'\''+">");
+    		out.write("<option class='text-field'  value='"+trend+"' >");
     		out.write(trend);
     		out.write("</option>");
     	}
