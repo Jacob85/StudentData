@@ -56,8 +56,8 @@
   </tr>
     <tr>
     <td><a href="#">mxklasmxas</a></td>
-    <td><a href="#">Todo</a></td>
-  </tr>
+    <td> <a href="#">Todo</a></td>
+  </tr>	
 
 </table>
 </div>
