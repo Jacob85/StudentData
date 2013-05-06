@@ -14,36 +14,36 @@
 	List<String> historylist = (List<String>) session.getAttribute("history");
 	List<String> subjects= (List<String>)session.getAttribute("subjects");
 %>
-<p  class="focus" style="position: absolute; left: 34px; top: 050px; width: 137px; height: 34px;color: #4889C2;
+<p  class="focus" style="position: absolute; left: 10%; top: 050px; width: 137px; height: 34px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;">Hello <%=" "+user.getUserName()+"  |  " %>  <a href="#"> Log out</a> </p> 
-<p  class="focus" style="text-decoration:none; position: absolute; left: 883px; top: 050px;color: #4889C2;
+	-moz-transition: all .4s;">Hello <%=" "+user.getUserName()+"  |  " %>  <a  style= "width: 50px" href="#"> Log out</a> </p> 
+<p  class="focus" style="text-decoration:none; position: absolute;left:90%; top: 050px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;"><a href=" http://localhost:8080/StudentData/StudentData/cart.jsp" >Todo</a> </p>
-<p  class="focus" style="position: absolute; left: 883px; top: 77px;color: #4889C2;
+	-moz-transition: all .4s;"><a href="StudentData/cart.jsp" >Todo</a> </p>
+<p  class="focus" style="position: absolute; left: 90%; top: 77px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done</a> </p>
-<a id="menuitem" href="#" style=" left: 338px;opacity:.9">Home Page</a>
-<a id="menuitem" href="StudentData/upload.jsp" style=" left: 538px;">Upload</a>
-<a id="menuitem" href="# " style="left: 704px;">About</a>
+<a id="menuitem" href="#" style=" left: 40%;opacity:.9">Home Page</a>
+<a id="menuitem" href="StudentData/upload.jsp" style=" left: 50%;">Upload</a>
+<a id="menuitem" href="# " style="left: 60%;">About</a>
         <p class="tabBar"></p>
-        
-    <div style="position: absolute; left: 471px; top: 308px;">
-
+        	<div id="headLine">My Cources</div>
+    <div style="position: absolute; left: 50%; top: 308px;">
 <table  id="filestable" style="border:none"  width="200px" border="1">
 <% 
-	String subjectUrl="http://localhost:8080/StudentData/StudentData"+ user.getUniversity()+"/"
+	String subjectUrl="\""+user.getUniversity()+"/"
 						+user.getTrend()+"/"+user.getYear()+"/";
+	String getfile="/get_files=true";
 	for(String subject : subjects)
 	{
 		out.write("<tr style='border:none'>"
-			    +"<td ><a href="+subjectUrl+subject+">"+subject+"</a></td> </tr>");
+			    +"<td ><a href="+subjectUrl+subject+getfile+"\""+">"+subject+"</a></td> </tr>");
 	}
 	%>
 	</table>
