@@ -28,8 +28,7 @@ nav {
 }
 #filestable
 {
-	
-	
+
 }
 #filestable tr td
 {
@@ -46,7 +45,16 @@ nav {
 {
 		opacity: .9;
 }
-
+#headLine
+{
+	position:absolute;
+	top:190px;
+	left:45%;
+	color: #4889C2;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 40px;
+}
 #menuitem
 {
 	position:absolute;
