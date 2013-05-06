@@ -26,8 +26,6 @@
 	-moz-transition: all .4s;"><a href="StudentData/cart.jsp" >Todo</a> </p>
 
 <p  class="focus" style="position: absolute; left: 90%; top: 77px;color: #4889C2;
-
->>>>>>> branch 'master' of https://github.com/Jacob85/StudentData.git
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
