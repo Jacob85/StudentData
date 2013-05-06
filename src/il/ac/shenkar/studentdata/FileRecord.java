@@ -1,5 +1,9 @@
 package il.ac.shenkar.studentdata;
 
+import java.util.ArrayList;
+
+import sun.util.logging.resources.logging;
+
 public class FileRecord
 {
 	private int id;
@@ -93,6 +97,22 @@ public class FileRecord
 		builder.append(this.subject + "/");
 		
 		return builder.toString();
+	}
+	
+	public ArrayList<FileRecord> getFilesWithCourse(ArrayList<FileRecord> fromList,String course)
+	{
+		if (course == null || fromList == null )
+		{
+			return null;
+		}
+		ArrayList<FileRecord> listToReturn = new ArrayList<FileRecord>();
+		
+		for (FileRecord record: fromList)
+		{
+			if (record.getSubject().equals(course))
+				listToReturn.add(record);
+		}
+		return listToReturn;
 	}
 
 	

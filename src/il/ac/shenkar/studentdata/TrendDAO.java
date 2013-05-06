@@ -39,10 +39,10 @@ public class TrendDAO implements IDataBaseActions
 	@Override
 	public int addRecord(Object toAdd) 
 	{
+		Session session = factory.openSession();
 		try {
 			logger.info("addRecord was called");
 			// creating a new session for adding products
-			Session session = factory.openSession();
 			session.beginTransaction();
 			session.save((Trend)toAdd);
 			logger.info("Saving Trend Record");
@@ -52,6 +52,7 @@ public class TrendDAO implements IDataBaseActions
 			return 1;
 		} catch (HibernateException e) 
 		{
+			session.close();
 			logger.error("Save Trend Record Failed, return 0");
 			e.printStackTrace();
 			return 0;

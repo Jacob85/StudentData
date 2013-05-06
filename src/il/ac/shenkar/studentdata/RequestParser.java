@@ -98,5 +98,23 @@ public class RequestParser
 		return listToReturn;
 	}
 	
+	public String getCourseFromPath(String Path)
+	{
+		if (Path == null)
+		{
+			logger.error("getCourseFromPath was called with String null");
+			return null;
+		}
+		if (Path.contains("/get_files=true"))
+		{
+			String course = Path.replace("/get_files=true", "");
+			String[] tokens = course.split(separetor);
+			course = tokens[tokens.length-1];
+			logger.info("Course is: "+course);
+			return course;
+		}
+		logger.error("Wrong Course Query, uri: "+Path + " does not contain '/get_files=true' return 0");
+		return null;
+	}
 
 }

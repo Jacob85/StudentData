@@ -171,6 +171,37 @@ public class StudentDataController extends HttpServlet
 			//TODO: to return something to cadan
 			return;
 		}
+		case "get_files=true":
+		{
+			try {
+				if (this.IsSessionValidate(req, resp))
+				{
+					// get the course name
+					logger.info("Calling the paser with uri: "+ req.getRequestURI());
+					String course = parser.getCourseFromPath(req.getRequestURI());
+					
+					//get the Session
+					HttpSession currSession = req.getSession();
+					java.util.List userFiles = (java.util.List) currSession.getAttribute("userFiles");
+					ArrayList<FileRecord> courseFilesList = new FileRecord().getFilesWithCourse((ArrayList<FileRecord>) userFiles, course);
+					currSession.setAttribute("userFiles", courseFilesList);
+					
+				/*	String[] columns = {"university", "trend","year"};
+					String[] conditionls = {newUser.getUniversity(), newUser.getTrend(), newUser.getYear()};
+					java.util.List userFiles = FileRecordDAO.getInstance().getRecordsWhere(columns, conditionls);
+					
+					HttpSession currSession = req.getSession();
+					currSession.setAttribute("userFiles", filesList);*/
+					
+					//mean the user need t login first. the Session is timeout
+					logger.info("Session timeout or new session, forword the user to login");
+					getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
+				}
+				}catch (ServletException e)
+				{
+					
+				}
+		}
 		case "remove_from_cart=true":	
 			this.cartTransaction(req, resp, Cart.REMOVED);
 			break;

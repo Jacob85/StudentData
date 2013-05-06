@@ -38,10 +38,10 @@ public class UniDAO implements IDataBaseActions
 	@Override
 	public int addRecord(Object toAdd)
 	{
+		Session session = factory.openSession();
 		try {
 			logger.info("addRecord was called");
 			// creating a new session for adding products
-			Session session = factory.openSession();
 			session.beginTransaction();
 			session.save((UniRecord)toAdd);
 			logger.info("Saving Uni Record");
@@ -51,6 +51,7 @@ public class UniDAO implements IDataBaseActions
 			return 1;
 		} catch (HibernateException e) 
 		{
+			session.close();
 			logger.error("Save Uni Record Failed, return 0");
 			e.printStackTrace();
 			return 0;
