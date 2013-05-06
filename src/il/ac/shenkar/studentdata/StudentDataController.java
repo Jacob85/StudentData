@@ -180,6 +180,7 @@ public class StudentDataController extends HttpServlet
 					//forword to After Login
 					logger.info("Forward to /AfterLogin.jsp");
 					getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
+					return;
 				}
 				//mean the user need t login first. the Session is timeout
 				logger.info("Session timeout or new session, forword the user to login");
