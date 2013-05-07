@@ -81,8 +81,7 @@ public class StudentDataController extends HttpServlet
 			req.getSession().setAttribute("register", register);
 			// Forward the User to register.jsp
 			logger.info("Forword request to register.jsp");
-			//	getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
-			resp.sendRedirect(req.getContextPath() + "/register.jsp");
+			getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
 			return;
 		
 		}
@@ -303,7 +302,7 @@ public class StudentDataController extends HttpServlet
 					java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
 					currSession.setAttribute("history", filesHistory);
 					
-					resp.sendRedirect(req.getContextPath() + "/AfterLogin.jsp" ); // getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
+					getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
 					return;
 				}
 			}
