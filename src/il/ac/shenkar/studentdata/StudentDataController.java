@@ -55,7 +55,7 @@ public class StudentDataController extends HttpServlet
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{
 		
 		
@@ -74,22 +74,17 @@ public class StudentDataController extends HttpServlet
 		{
 		case "register.jsp":
 		{
-			try {
-				// get the Register Ob 
-				Register register = new Register();
-				register.getLists();
-				// attached the register OB to the Session OB
-				req.getSession().setAttribute("register", register);
-				// Forward the User to register.jsp
-				logger.info("Forword request to register.jsp");
-				getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
-				return;
-			} catch (ServletException e) 
-			{
-				e.printStackTrace();
-				logger.error("ServletException: " + e.getMessage()+ " Url Received: "+req.getRequestURI());
-			}
-			break;
+			// get the Register Ob 
+			Register register = new Register();
+			register.getLists();
+			// attached the register OB to the Session OB
+			req.getSession().setAttribute("register", register);
+			// Forward the User to register.jsp
+			logger.info("Forword request to register.jsp");
+			//	getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/register.jsp");
+			return;
+		
 		}
 		case "add_to_cart=true":
 		{
@@ -308,7 +303,7 @@ public class StudentDataController extends HttpServlet
 					java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
 					currSession.setAttribute("history", filesHistory);
 					
-					getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
+					resp.sendRedirect(req.getContextPath() + "/AfterLogin.jsp" ); // getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
 					return;
 				}
 			}

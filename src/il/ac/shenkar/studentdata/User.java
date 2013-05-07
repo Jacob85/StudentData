@@ -124,6 +124,14 @@ public class User
 	{
 		if (fileName == null || fileName.isEmpty())
 			return;
+		// check if the member files to view is empty
+		if (getFilesToView().equals("none"))
+		{
+			//set the files to view to the new file name 
+			//the files to view before was 'none'
+			setFilesToView(fileName);
+			return;
+		}
 		setFilesToView(getFilesToView() + "%" + fileName);
 		return;
 		

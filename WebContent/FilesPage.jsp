@@ -15,6 +15,7 @@
 	List<String> cartList=(List<String>)  session.getAttribute("cart");
 	List<String> historylist = (List<String>) session.getAttribute("history");
 	List<FileRecord> userFilesList= (List<FileRecord>)session.getAttribute("userFiles");
+	List<FileRecord> courseFilesList= (List<FileRecord>)session.getAttribute("courseFiles");
 %>
 <p  style="position: absolute; left: 5%; top: 050px; height: 34px;color: #4889C2;
 	font-weight: bold;
@@ -36,7 +37,7 @@
 <a id="menuitem" href="# " style="left: 70%;">About</a>
 <div id="headLine">
 	<%
-	FileRecord f=userFilesList.get(0);
+	FileRecord f=courseFilesList.get(0);
 	out.write(f.getSubject()+" Files");
 	%>
 </div>
@@ -47,7 +48,7 @@
 <table  id="filestable" style="border:none;left: 50%;padding: 10px" border="1">
  
   <%
-  for(FileRecord file:userFilesList)
+  for(FileRecord file:courseFilesList)
   {
 	  String fName=new File(file.getPath()).getName();
 	  out.write(" <tr style=\"border:none\">");
@@ -58,10 +59,10 @@
 	  out.write(file.getDescription());
 	  out.write("</td>");
 	  out.write("<td>");
-	  out.write("<a href=\""+file.getPath()+"\""+">TODO</a>");
+	  out.write("<a href=\""+file.getPath()+"/add_to_cart=true" +"\""+">TODO</a>");
 	  out.write("</td>");
 	  out.write("<td>");
-	  out.write("<a href=\""+file.getPath()+"\""+">Download</a>");
+	  out.write("<a href=\""+file.getPath()+"/download" +"\""+">Download</a>");
 	  out.write("</td>");
 	  out.write("</tr>");
   }

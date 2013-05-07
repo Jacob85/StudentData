@@ -56,6 +56,7 @@ public class RequestParser
 		logger.info("getFilePath was called with: " +uri);
 		// remove all of the request headers;
 		String path = uri.replaceAll("/StudentData", "");
+		path = path.replaceAll("%20", " ");
 		StringBuilder builder = new StringBuilder();
 		String[] tokens = path.split(separetor);
 		
