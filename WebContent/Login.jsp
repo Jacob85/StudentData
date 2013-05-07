@@ -23,7 +23,6 @@
     <input type="password" name="password" class="text-field" placeholder="Password" />
 
     <input  type="submit" value="Log In" class="button" /><br><br>
-   Remember me <input type="checkbox" value="remember_me"/>
    <br><br>
    <%
   		 if(message!=null)
