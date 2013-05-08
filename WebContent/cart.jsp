@@ -1,7 +1,9 @@
 <!doctype html>
-<%@page import="com.sun.xml.internal.fastinfoset.util.PrefixArray"%>
+<%@page import="java.io.File"%>
+<%@page import="java.nio.file.Path"%>
 <%@page import="java.util.List"%>
 <%@ page import="il.ac.shenkar.studentdata.*" %>
+<%@page import="com.sun.xml.internal.fastinfoset.util.PrefixArray"%>
 <%@ page errorPage="errorPage.jsp" %>
 <html>
 <head>
@@ -42,22 +44,46 @@
 <a id="menuitem" href="StudentData/upload.jsp" style=" left: 50%;">Upload</a>
 <a id="menuitem" href="# " style="left: 70%;">About</a>
         <p class="tabBar"></p>
-        	<div id="headLine"> My Cources</div>
-    <div style="position: absolute; left: 50%; top: 308px;">
-<table  id="filestable" style="border:none"  width="200px" border="1">
-<% 
+        	<div id="headLine"> My TODO List</div>
+        	    <div style="position: absolute; left: 40%; top: 280px;">
 
-	String subjectUrl="\""+user.getUniversity()+"/"
-						+user.getTrend()+"/"+user.getYear()+"/";
-	String getfile="/get_files=true";
-	for(String subject : subjects)
-	{
-		out.write("<tr style='border:none'>"
-			    +"<td ><a href="+subjectUrl+subject+getfile+"\""+">"+subject+"</a></td> </tr>");
-	}
-	%>
-	</table>
-	</div>
+<table  id="filestable" style="border:none;left: 50%;padding: 10px" border="1">
+ 
+ <%
+  if(cartList==null||cartList.size()==0)
+  {
+	  out.write(" <tr style=\"border:none\">");
+	  out.write("<td>");
+	  out.write("Hooray!!! No more TODO");		  
+	  out.write("</td>");
+	  out.write("</tr>");
+	  out.write(" <tr style=\"border:none\">");
+	  out.write("<td>");
+	  out.write("You can see more file here...");
+	  out.write("<form name='f2' action='AfterLogin.jsp'>");
+	  out.write("<input type='submit' name='button1' value='Login Page' class='button'>");
+	  out.write("</form>");
+	  out.write("</td>");
+	  out.write("</tr>");
+  }
+  else
+  {
+		String subjectUrl="http://localhost:8080/StudentData/StudentData/";
+		String removeActionString="/remove_from_cart=true";
+		for(String item : cartList)
+		{
+			File file=new File(item);
+			String itemName=file.getName();
+			out.write("<tr style='border:none'>"
+				    +"<td ><a href=\""+subjectUrl+item+"\"" +">"+itemName+"</a></td> ");
+			out.write("<td ><a href=\""+subjectUrl+item +"/download\">"+"Download"+"</a></td>");
+			out.write("<td ><a href=\""+subjectUrl+item +removeActionString+"\""+">"+"Done"+"</a></td> </tr>");
+			
+		}
+  }
+  %>
+</table>
+</div>
 </body>
 
 </html>

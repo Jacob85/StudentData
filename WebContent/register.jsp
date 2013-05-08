@@ -1,6 +1,7 @@
 <!doctype html>
 <%@page import="java.util.List"%>
 <%@page import="il.ac.shenkar.studentdata.*" %>
+<%@ page errorPage="errorPage.jsp" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -17,9 +18,9 @@
 
 	<h2>Register</h2>
 
-	<input type="text" name="username" class="text-field" placeholder="User name  " />
-    <input type="password" name="password" class="text-field" placeholder="Password" />
-    <input type="email" name="email" class="text-field" placeholder="E-mail" />
+	<input type="text" name="username" class="text-field" placeholder="User name  "  required/>
+    <input type="password" name="password" class="text-field" placeholder="Password" required/>
+    <input type="email" name="email" class="text-field" placeholder="E-mail" required/>
     <select style="width: 245px; height: 50px" name="uni" class="text-field"  id="Select1">
     <%
     	for(String uni:r.getUnis())

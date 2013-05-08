@@ -42,7 +42,8 @@ import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 public class StudentDataController extends HttpServlet 
 {
 	final  String localPath = "C:\\Users\\Jacob\\workspaceEE\\StudentData\\Files\\";
-	final String prefix = "http://localhost:8080/StudentData/";
+	final String prefix = "http://localhost:8080/StudentData/StudentData/";
+	final String prefixTest="http://localhost:8080/StudentData/StudentData/";
 	static Logger logger = Logger.getLogger(StudentDataController.class.getName());
 	private RequestParser parser;
 	private FileItemFactory factory;
@@ -302,7 +303,7 @@ public class StudentDataController extends HttpServlet
 					
 					java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
 					currSession.setAttribute("history", filesHistory);
-					currSession.setAttribute("prefix", prefix);
+					currSession.setAttribute("prefix", prefixTest);
 					
 					getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
 					return;

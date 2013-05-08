@@ -1,6 +1,7 @@
 <!doctype html>
 <%@page import="java.util.List"%>
 <%@page import="il.ac.shenkar.studentdata.*" %>
+<%@ page errorPage="errorPage.jsp" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -10,8 +11,15 @@
 </head>
 <body>
 <%
+	  int todoNum=0,doneNum=0;
 	  User user= (User)session.getAttribute("user");
 	  Register r=(Register)session.getAttribute("register");
+		List<String> cartList=(List<String>)  session.getAttribute("cart");
+		List<String> historylist = (List<String>) session.getAttribute("history");
+		if(cartList!=null)
+			todoNum=cartList.size();
+		if(historylist!=null)
+			doneNum=historylist.size();
 %>
 <p  style="position: absolute; left: 5%; top: 050px; height: 34px;color: #4889C2;
 	font-weight: bold;
@@ -22,12 +30,12 @@
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;"><a href="StudentData/cart.jsp" >Todo</a> </p>
+	-moz-transition: all .4s;"><a href="StudentData/cart.jsp" >Todo- <%="   "+todoNum %> </a> </p>
 <p  class="focus" style="position: absolute;left: 90%; top: 77px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;"><a href="#">Done</a> </p>
+	-moz-transition: all .4s;"><a href="#">Done- <%="   "+doneNum %></a></p>
 	<div id="menues">
 <a id="menuitem" href="StudentData/homePage.jsp" style="left: 30%;"> Home Page </a>
 <a id="menuitem" href="#" style=" left: 50%; opacity:.9">Upload</a>
@@ -39,8 +47,8 @@
        <p class="focus" style="position: absolute; left: 106px; top: 149px; width: 65px; height: 21px;"><strong>Upload</strong></p>
         <form action="StudentData/upload=true" method="post" enctype="multipart/form-data" 
 name="productForm" id="productForm">
-<input  type="file" name="file" id="file">
-<input type="text"  name="description"  class="text-field" placeholder="Description" >
+<input  type="file" name="file" id="file" required>
+<input type="text"  name="description"  class="text-field" placeholder="Description"  requiredrequired>
  <select style="width: 245px; height: 50px" name="uni" class="text-field"  id="Select1">
     <%
     	for(String uni:r.getUnis())
@@ -67,7 +75,7 @@ name="productForm" id="productForm">
     	}
     %>
     </select>
-<input type="text"  name="course"  class="text-field" placeholder="Course" >
+<input type="text"  name="course"  class="text-field" placeholder="Course" required>
 <input class="button"  type="submit" name="Submit" value="Submit">
 </form>
 </div>
