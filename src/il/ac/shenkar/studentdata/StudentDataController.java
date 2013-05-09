@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -219,6 +221,14 @@ public class StudentDataController extends HttpServlet
 		case "remove_from_cart=true":	
 			this.cartTransaction(req, resp, Cart.REMOVED);
 			break;
+		case "logout=true":
+		{
+			// here i will invalidate the Session and redirect to the login page
+			req.getSession(true).invalidate();
+			resp.sendRedirect("/Login.jsp");
+			return;
+			
+		}
 		case "download":
 		{
 			//get the session
@@ -238,8 +248,8 @@ public class StudentDataController extends HttpServlet
 			String filename = parser.getFilePath(req.getRequestURI());			// get the fool filename 
 			File file =  FileSystemHandler.getInstande().getFile(filename);		// get the file from the file system
 		    resp.setContentLength((int)file.length());							// set the content length
-		    MimetypesFileTypeMap mime = new MimetypesFileTypeMap();
-		    resp.setContentType(mime.getContentType(file));						// set the file's mime type
+			// set the file's mime type
+		    resp.setContentType(Files.probeContentType(file.toPath()));
 		    
 		    //send the file to the client
 		    FileInputStream in = new FileInputStream(file);
@@ -320,14 +330,16 @@ public class StudentDataController extends HttpServlet
 		case "register":
 		{
 			//first i'll check if the user is already exists
-			/*if (UserDAO.getInstance().isExist(req.getParameter("email")))
+			if (UserDAO.getInstance().isExist(req.getParameter("email")))
 			{
 				// user is already exists
 				req.setAttribute("massage","User "+ req.getParameter("email") +" is allready exists");
+				logger.info("User "+ req.getParameter("email") +" is allready exists");
 				getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
 				return;
-			}*/
-			// the use entered his details and we need to register him to the system
+			}
+			logger.info("User does not exists in the DB, Creating new User");
+			// the user entered his details and we need to register him to the system
 			//TODO all of the validation of the form are performed in the client side, here i do not dial with it
 			User newUser = new User();
 			newUser.setEmail(req.getParameter("email"));
@@ -339,6 +351,7 @@ public class StudentDataController extends HttpServlet
 			newUser.setYear(req.getParameter("year"));
 			newUser.setFilesHistory("none");
 			newUser.setFilesToView("none");
+			logger.info(newUser.toString());
 			// add the user to the DB
 			
 			if (UserDAO.getInstance().addRecord(newUser) == 1)
@@ -476,6 +489,17 @@ public class StudentDataController extends HttpServlet
 					FileRecordDAO.getInstance().addRecord(record);
 					//forword the reuqest to after login again
 					req.setAttribute("massage","File: " +items.get(0).getName() +" was upload sucssesfuly!");
+					
+					//get the files list from the Session
+					java.util.List filesList = (java.util.List) session.getAttribute("userFiles");
+					//add the current file to te files list
+					filesList.add(record);
+					ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList(filesList);
+					
+					//attached the object i modified to the session again
+					session.setAttribute("subjects", subjectList);
+					session.setAttribute("userFiles", filesList);
+					
 					req.getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
 					return;
 				}
@@ -547,7 +571,7 @@ public class StudentDataController extends HttpServlet
 		return true;
 	}
 	
-	public void cartTransaction(HttpServletRequest req, HttpServletResponse resp,Cart direction)
+	public void cartTransaction(HttpServletRequest req, HttpServletResponse resp,Cart direction) throws ServletException, IOException
 	{
 		//get the session
 		HttpSession session = req.getSession();
@@ -556,7 +580,7 @@ public class StudentDataController extends HttpServlet
 		if (session.isNew() || (session.getAttribute("user")==null))
 		{
 			try {
-				req.setAttribute("massage","Please Login First");
+				req.setAttribute("massage","Session Time out, Please login again");
 				getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
 				return;
 			} catch (ServletException | IOException e) {
@@ -566,13 +590,46 @@ public class StudentDataController extends HttpServlet
 		User user = (User) session.getAttribute("user");				// get the user
 		String filename = parser.getFilePath(req.getRequestURI());		// get the fool filename 
 		if (direction == Cart.ADD)
+		{
+			//check if the file name exists in the cart list already
+			if (user.isExistInCart(filename))
+			{
+				session.setAttribute("massage","File: " + filename+ " already exists in the cart");
+				logger.info("File: " + filename+ " already exists in the cart");
+				//forward the request to FilesPage.jsp
+				getServletContext().getRequestDispatcher("/FilesPage.jsp").forward(req, resp);
+				return;
+			}
 			user.addToCart(filename);										// adding to the cart
+			// update the cart list and add it to the session
+			java.util.List<String> filesList1 = parser.getFileList(user.getFilesToView());
+			session.setAttribute("cart",filesList1);
+			session.setAttribute("massage","File: " + filename+ " was added to the cart list");
+			logger.info("File: " + filename+ " was added to the cart list");
+			// update the DB
+			UserDAO.getInstance().updateRecord(user);
+			//forward the request to FilesPage.jsp 
+			getServletContext().getRequestDispatcher("/FilesPage.jsp").forward(req, resp);
+		}
 		else
-			user.removeFromCart(filename);								//remove from cart
-		// update the DB
-		UserDAO.getInstance().updateRecord(user);
-		
-		// TODO: to add the new data to the new object i am sending to cadan and to forword the rquest to somewhere
+		{
+			//remove from cart & adding to history
+			user.removeFromCart(filename);								
+			
+			// create new cart files object and attached them to the Session 
+			java.util.List<String> cartFiles = parser.getFileList(user.getFilesToView());
+			session.setAttribute("cart", cartFiles);
+			
+			// create new Files History file and attached it to the Session
+			java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
+			session.setAttribute("history", filesHistory);
+			session.setAttribute("massage","File: " + filename+ " was remove from cart and added to the history list");
+			logger.info("File: " + filename+ " was remove from cart and added to the history list");
+			// update the DB
+			UserDAO.getInstance().updateRecord(user);
+			//forward the request to FilesPage.jsp
+			getServletContext().getRequestDispatcher("/FilesPage.jsp").forward(req, resp);
+		}
 		return;
 	}
 	

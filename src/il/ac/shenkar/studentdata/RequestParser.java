@@ -109,6 +109,7 @@ public class RequestParser
 		if (Path.contains("/get_files=true"))
 		{
 			String course = Path.replace("/get_files=true", "");
+			course = course.replaceAll("%20", " ");							/*replace the %20 to space*/
 			String[] tokens = course.split(separetor);
 			course = tokens[tokens.length-1];
 			logger.info("Course is: "+course);

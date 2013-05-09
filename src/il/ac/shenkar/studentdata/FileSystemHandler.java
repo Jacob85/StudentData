@@ -10,7 +10,7 @@ public class FileSystemHandler
 {
 	private static FileSystemHandler instance;
 	private String pathBarier = "/";	
-	private String currentWorkingPath =  "/Users/admin/Desktop";///var/lib/openshift/514b02865973ca7a4b000087/app-root/data";
+	private String currentWorkingPath =  "C:\\Users\\Jacob\\output";///var/lib/openshift/514b02865973ca7a4b000087/app-root/data";
 	private final String homeDirectory = "Files";
 	private static Logger logger;
 	

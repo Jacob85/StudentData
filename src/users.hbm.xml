@@ -4,7 +4,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="il.ac.shenkar.studentdata.User" table="Users">
-		<id name="email" type="text"  column="ID" >
+		<id name="email" type="text"  column="ID"  >
 		</id>
 		<property name="userName">
 			<column name="username"/>

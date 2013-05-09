@@ -1,5 +1,7 @@
 package il.ac.shenkar.studentdata;
 
+import org.apache.log4j.Logger;
+
 public class User 
 {
 	private String email;
@@ -11,11 +13,12 @@ public class User
 	private String subject;
 	private String filesToView;
 	private String filesHistory;
-	
+	private Logger logger;
 	
 	
 	public User() {
 		super();
+		this.logger = Logger.getLogger(User.class.getName());
 	}
 	
 	
@@ -29,6 +32,7 @@ public class User
 		this.trend = trend;
 		this.year = year;
 		this.subject = subject;
+		this.logger = Logger.getLogger(User.class.getName());
 	}
 
 
@@ -109,15 +113,46 @@ public class User
 		return false;
 		
 	}
+	
+	
+	
+	@Override
+	public String toString() 
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("User name: "+ this.getUserName()+ "\n");
+		builder.append("User email is: " + this.getEmail()+ "\n"); 
+		builder.append("User Uni is: " + this.getUniversity()+ "\n");
+		builder.append("User trend is: " + this.getTrend() + "\n");
+		builder.append("User year is: " + this.getYear()+ "\n"); 
+		return  builder.toString();
+	}
+
+
+	public boolean isExistInCart(String filename)
+	{
+		if (this.filesToView.contains(filename))
+			return true;
+		return false;
+	}
 
 	public void removeFromCart(String fileName)
 	{
 		//remove the file from the file list
 		this.filesToView.replace(fileName, "");
+		logger.info("Removind "+ fileName + " From the To DO List");
 		//remove the duplicate separetor if exists  
 		this.filesToView.replace("%%","%");
 		//add the file i removed to the file history
+		if (getFilesHistory().equals("none"))
+		{
+			//mean the files history is empty and we need to run over the data inside the member
+			setFilesHistory(fileName);
+			logger.info("Files History is empty, Adding: "+ fileName+" to files history");
+			return;
+		}
 		setFilesHistory(this.getFilesHistory() + "%" + fileName);
+		logger.info("Adding: " + fileName + " to File History");
 	}
 	
 	public void addToCart(String fileName) 
@@ -130,9 +165,11 @@ public class User
 			//set the files to view to the new file name 
 			//the files to view before was 'none'
 			setFilesToView(fileName);
+			logger.info("To DO File List is empty, Adding: "+ fileName+" to the list");
 			return;
 		}
 		setFilesToView(getFilesToView() + "%" + fileName);
+		logger.info("Adding: " + fileName + " to TODO list");
 		return;
 		
 	}
