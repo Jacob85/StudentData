@@ -139,10 +139,13 @@ public class User
 	public void removeFromCart(String fileName)
 	{
 		//remove the file from the file list
-		this.filesToView.replace(fileName, "");
+		this.filesToView = filesToView.replace(fileName, "");
 		logger.info("Removind "+ fileName + " From the To DO List");
 		//remove the duplicate separetor if exists  
-		this.filesToView.replace("%%","%");
+		this.filesToView = filesToView.replace("%%","%");
+		
+		if (this.filesToView.isEmpty())
+			filesToView = "none";
 		//add the file i removed to the file history
 		if (getFilesHistory().equals("none"))
 		{
@@ -151,6 +154,14 @@ public class User
 			logger.info("Files History is empty, Adding: "+ fileName+" to files history");
 			return;
 		}
+		
+		if (this.filesHistory.contains(fileName))
+		{
+			//mean the history list already have the file in it we need to do nothing
+			logger.info("File History already contains the file: " + fileName);
+			return;
+		}
+		
 		setFilesHistory(this.getFilesHistory() + "%" + fileName);
 		logger.info("Adding: " + fileName + " to File History");
 	}

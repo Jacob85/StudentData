@@ -24,6 +24,8 @@ public class MD5Converter
 	public String getMD5(String pass)
 	{
 		String md5Password = null;
+		if (pass == null)
+			return null;
     	try
 		{
 			MessageDigest md = MessageDigest.getInstance("MD5");

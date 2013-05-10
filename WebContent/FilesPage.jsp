@@ -85,10 +85,10 @@
 		  out.write(file.getDescription());
 		  out.write("</td>");
 		  out.write("<td>");
-		  out.write("<a href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/add_to_cart=true" +"\""+">TODO</a>");
+		  out.write("<a href=\""+urlPrefix+"/StudentData"+file.getPath()+"/add_to_cart=true" +"\""+">TODO</a>");
 		  out.write("</td>");
 		  out.write("<td>");
-		  out.write("<a href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/download" +"\""+">Download</a>");
+		  out.write("<a href=\""+urlPrefix+"/StudentData"+file.getPath()+"/download" +"\""+">Download</a>");
 		  out.write("</td>");
 		  out.write("</tr>");
 	  }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.apache.derby.tools.sysinfo;
 import org.apache.log4j.Logger;
+import org.apache.log4j.pattern.LogEvent;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -201,9 +202,23 @@ public class FileRecordDAO implements IDataBaseActions
 			return 0;
 		}
 
-	/*	public ArrayList<FileRecord> searchFiles(String str)
+		public ArrayList<FileRecord> searchFiles(String str)
 		{
+			ArrayList<FileRecord> allResults = (ArrayList<FileRecord>) this.getAllRecords();
+			logger.debug("Query the DB, returned a list of "+ allResults.size()+" File records");
+			ArrayList<FileRecord> relevantResults = new ArrayList<>();
+			
+			for (FileRecord record: allResults)
+			{
+				if (record.getDescription().contains(str) || record.getTrend().contains(str) || record.getSubject().contains(str))
+				{
+					relevantResults.add(record);
+					logger.info("Adding "+record.getPath() + " to the returned Relevand list");
+				}
+			}
+			logger.info("Returned List with "+relevantResults.size()+" File Records");
+			return relevantResults;
 			
 		}
-*/
+
 }

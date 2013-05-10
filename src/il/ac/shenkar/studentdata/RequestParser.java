@@ -79,12 +79,17 @@ public class RequestParser
 	 */
 	public java.util.List<String> getFileList(String fileList)
 	{
-		logger.info("getFileList was called with param: " + fileList);
-		if (fileList.equals("none") || fileList == null)
+		if (fileList == null)
 		{
 			logger.info("String is empty, return null");
 			return null;
 		}
+		if (fileList.equals("none"))
+		{
+			logger.info("String is empty, return null");
+			return null;
+		}
+		logger.info("getFileList was called with param: " + fileList);
 		// separate the strings
 		String [] files = fileList.split(fileListSeparetor);
 		// allocate the list
