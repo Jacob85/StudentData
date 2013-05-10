@@ -138,6 +138,8 @@ public class StudentDataController extends HttpServlet
 				e.printStackTrace();
 			}
 			return;
+			
+			
 		}
 		case "history.jsp":
 		{
