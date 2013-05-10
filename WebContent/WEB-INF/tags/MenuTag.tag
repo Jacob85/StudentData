@@ -20,8 +20,8 @@ else if(menuItem3Link.trim().equals("#"))
 {
 	itme3Opacity=".9";
 }
-out.print("<a id=\"menuitem\" href=\""+menuItem1Link+"#\" style=\" left: 30%;opacity:"+itme1Opacity+"\">"+menuItem1+"</a>"
-+"<a id=\"menuitem\" href=\""+menuItem2Link+" style=\" left: 50%;opacity:"+itme2Opacity+"\">"+menuItem2+"</a>"+
+out.print("<a id=\"menuitem\" href=\""+menuItem1Link+"\" style=\" left: 30%;opacity:"+itme1Opacity+"\">"+menuItem1+"</a>"
++"<a id=\"menuitem\" href=\""+menuItem2Link+"\" style=\" left: 50%;opacity:"+itme2Opacity+"\">"+menuItem2+"</a>"+
 "<a id=\"menuitem\" href=\""+menuItem3Link+"\" style=\"left: 70%;opacity:"+itme3Opacity+"\">"+menuItem3+"</a>"
     +"<p class=\"tabBar\"></p>");
 %>

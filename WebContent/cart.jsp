@@ -5,6 +5,7 @@
 <%@ page import="il.ac.shenkar.studentdata.*" %>
 <%@page import="com.sun.xml.internal.fastinfoset.util.PrefixArray"%>
 <%@ page errorPage="errorPage.jsp" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="menu" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -40,10 +41,8 @@
 	text-decoration: none;
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done- <%="   "+doneNum %> </a></p>
-<a id="menuitem" href="#" style=" left: 30%;opacity:.9">Home Page</a>
-<a id="menuitem" href="StudentData/upload.jsp" style=" left: 50%;">Upload</a>
-<a id="menuitem" href="# " style="left: 70%;">About</a>
-        <p class="tabBar"></p>
+
+	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="StudentData/homePage.jsp" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
         	<div id="headLine"> My TODO List</div>
         	    <div style="position: absolute; left: 40%; top: 280px;">
 
