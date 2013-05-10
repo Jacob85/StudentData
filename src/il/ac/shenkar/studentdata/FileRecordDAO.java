@@ -201,6 +201,9 @@ public class FileRecordDAO implements IDataBaseActions
 			return 0;
 		}
 
-
-
+	/*	public ArrayList<FileRecord> searchFiles(String str)
+		{
+			
+		}
+*/
 }

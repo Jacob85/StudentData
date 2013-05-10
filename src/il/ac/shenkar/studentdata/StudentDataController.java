@@ -471,9 +471,6 @@ public class StudentDataController extends HttpServlet
 				
 				//create the file
 				FileRecord record = new FileRecord();
-				System.out.println("Field name: "+items.get(2).getFieldName());
-				System.out.println("get name: "+items.get(2).getName());
-				System.out.println("get string "+items.get(2).getString());
 				record.setDescription(items.get(1).getString());
 				record.setSubject(items.get(5).getString());
 				record.setTrend(items.get(4).getString());
@@ -492,19 +489,23 @@ public class StudentDataController extends HttpServlet
 				{	
 					//after the file is saved to the file system we need to add the record to the DB	
 					FileRecordDAO.getInstance().addRecord(record);
-					//forword the reuqest to after login again
+					// attached a massage 
 					req.setAttribute("massage","File: " +items.get(0).getName() +" was upload sucssesfuly!");
 					
-					//get the files list from the Session
-					java.util.List filesList = (java.util.List) session.getAttribute("userFiles");
-					//add the current file to te files list
-					filesList.add(record);
-					ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList(filesList);
-					
-					//attached the object i modified to the session again
-					session.setAttribute("subjects", subjectList);
-					session.setAttribute("userFiles", filesList);
-					
+					if (record.getYear().equals(user.getYear()) && record.getTrend().equals(user.getTrend()) && record.getUniversity().equals(user.getUniversity()))
+					{
+						//mean the file should be in the user files so we will update it
+						//get the files list from the Session
+						java.util.List filesList = (java.util.List) session.getAttribute("userFiles");
+						//add the current file to the files list
+						filesList.add(record);
+						ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList(filesList);
+						
+						//attached the object i modified to the session again
+						session.setAttribute("subjects", subjectList);
+						session.setAttribute("userFiles", filesList);
+					}
+					//Forward the request to after login again
 					req.getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
 					return;
 				}
@@ -602,7 +603,7 @@ public class StudentDataController extends HttpServlet
 				session.setAttribute("massage","File: " + filename+ " already exists in the cart");
 				logger.info("File: " + filename+ " already exists in the cart");
 				//forward the request to FilesPage.jsp
-				getServletContext().getRequestDispatcher("/FilesPage.jsp").forward(req, resp);
+				resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
 				return;
 			}
 			user.addToCart(filename);										// adding to the cart
@@ -614,7 +615,7 @@ public class StudentDataController extends HttpServlet
 			// update the DB
 			UserDAO.getInstance().updateRecord(user);
 			//forward the request to FilesPage.jsp 
-			getServletContext().getRequestDispatcher("/FilesPage.jsp").forward(req, resp);
+			resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
 		}
 		else
 		{
@@ -633,7 +634,7 @@ public class StudentDataController extends HttpServlet
 			// update the DB
 			UserDAO.getInstance().updateRecord(user);
 			//forward the request to FilesPage.jsp
-			getServletContext().getRequestDispatcher("/FilesPage.jsp").forward(req, resp);
+			resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
 		}
 		return;
 	}

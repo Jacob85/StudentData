@@ -57,6 +57,7 @@ public class RequestParser
 		// remove all of the request headers;
 		String path = uri.replaceAll("/StudentData", "");
 		path = path.replaceAll("%20", " ");
+		path = path.replaceAll("//", "/");
 		StringBuilder builder = new StringBuilder();
 		String[] tokens = path.split(separetor);
 		
