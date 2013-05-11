@@ -622,7 +622,7 @@ public class StudentDataController extends HttpServlet
 			//check if the file name exists in the cart list already
 			if (user.isExistInCart(filename))
 			{
-				session.setAttribute("massage","File: " + filename+ " already exists in the cart");
+				session.setAttribute("fileExistInTheCartMassage","File: " + filename+ " already exists in the cart");
 				logger.info("File: " + filename+ " already exists in the cart");
 				//forward the request to FilesPage.jsp
 				resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
@@ -632,7 +632,7 @@ public class StudentDataController extends HttpServlet
 			// update the cart list and add it to the session
 			java.util.List<String> filesList1 = parser.getFileList(user.getFilesToView());
 			session.setAttribute("cart",filesList1);
-			session.setAttribute("massage","File: " + filename+ " was added to the cart list");
+			session.setAttribute("addFileSuccsedMessage","File: " + filename+ " was added to the cart list");
 			logger.info("File: " + filename+ " was added to the cart list");
 			// update the DB
 			UserDAO.getInstance().updateRecord(user);
