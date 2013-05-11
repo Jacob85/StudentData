@@ -19,5 +19,6 @@
 		<mapping resource="users.hbm.xml"/>
 		<mapping resource="unis.hbm.xml"/>
 		<mapping resource="trends.hbm.xml"/>
+		<mapping resource="course.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>

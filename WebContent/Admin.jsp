@@ -24,6 +24,14 @@
     <input  type="submit" value="Add" class="button" /><br><br>
 </form>
 
+<form method="post" action="StudentData/addCourses">
+
+	<h2>Add Courses</h2>
+
+	<input type="text"  name="courses" size="80"  class="text-field" placeholder="courses" />
+    <input  type="submit" value="Add" class="button" /><br><br>
+</form>
+
 
 </body>
 </html>

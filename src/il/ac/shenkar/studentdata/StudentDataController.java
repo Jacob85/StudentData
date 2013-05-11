@@ -435,6 +435,27 @@ public class StudentDataController extends HttpServlet
 			resp.sendRedirect(req.getHeader("referer"));
 			return;
 		}
+		case "addCourses":
+		{
+			// get the trends string from the form
+			String courseString = req.getParameter("courses");
+			if (courseString == null)
+			{
+				resp.sendRedirect(req.getHeader("referer"));
+				logger.info("input was empty");
+			}
+			// split the string into Trends
+			String [] courses = courseString.split(",");
+			CourseRecord record;
+			for (int j =0; j<courses.length; j++)
+			{
+				record = new CourseRecord();
+				record.setCourseName(courses[j]);
+				CourseRecordDAO.getInstance().addRecord(record);
+			}
+			resp.sendRedirect(req.getHeader("referer"));
+			return;
+		}
 		case "upload=true":
 		{
 			HttpSession session = req.getSession();

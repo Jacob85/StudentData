@@ -3,6 +3,7 @@ package il.ac.shenkar.studentdata;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.apache.naming.java.javaURLContextFactory;
 import org.hibernate.mapping.List;
 
 import sun.misc.JavaUtilJarAccess;
@@ -11,13 +12,19 @@ public class Register implements Serializable
 {
 	private java.util.List<String> unis;
 	private java.util.List<String> trends;
+	private java.util.List<String> courses;
 	
 	
 	public Register() {
 		unis = new ArrayList<String>();
 		trends = new ArrayList<String>();
+		courses = new ArrayList<String>();
 	}
 		
+	public java.util.List<String> getCourses() {
+		return courses;
+	}
+
 	public java.util.List<String> getUnis() {
 		return unis;
 	}
@@ -46,6 +53,11 @@ public class Register implements Serializable
 		for(Trend trend: trendList)
 		{
 			trends.add(new String(trend.getTrendName()));
+		}
+		java.util.List<CourseRecord> courseList = (java.util.List<CourseRecord>)CourseRecordDAO.getInstance().getAllRecords();
+		for (CourseRecord record: courseList)
+		{
+			courses.add(new String(record.getCourseName()));
 		}
 	}
 	
