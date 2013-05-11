@@ -27,11 +27,11 @@ public class User
 		super();
 		this.email = email;
 		this.userName = userName;
-		this.password = password;
 		this.university = university;
 		this.trend = trend;
 		this.year = year;
 		this.subject = subject;
+		setPassword(password);
 		this.logger = Logger.getLogger(User.class.getName());
 	}
 
@@ -131,6 +131,10 @@ public class User
 
 	public boolean isExistInCart(String filename)
 	{
+		if (filename == null)
+			return false;
+		if (filename.isEmpty())
+			return false;
 		if (this.filesToView.contains(filename))
 			return true;
 		return false;
@@ -143,6 +147,9 @@ public class User
 		logger.info("Removind "+ fileName + " From the To DO List");
 		//remove the duplicate separetor if exists  
 		this.filesToView = filesToView.replace("%%","%");
+		
+		if (filesToView.startsWith("%"))
+			filesToView = filesToView.replaceFirst("%", "");
 		
 		if (this.filesToView.isEmpty())
 			filesToView = "none";
@@ -168,7 +175,9 @@ public class User
 	
 	public void addToCart(String fileName) 
 	{
-		if (fileName == null || fileName.isEmpty())
+		if (fileName == null )
+			return;
+		if (fileName.isEmpty())
 			return;
 		// check if the member files to view is empty
 		if (getFilesToView().equals("none"))
