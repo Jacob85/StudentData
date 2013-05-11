@@ -29,7 +29,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;">Hello <%=" "+user.getUserName()+"  |  " %>  <a  style= "width: 50px" href="#"> Log out</a> </p> 
+	-moz-transition: all .4s;">Hello <%=" "+user.getUserName()+"  |  " %>  <a  style= "width: 50px" href="http://localhost:8080/StudentData/StudentData/logout=true"> Log out</a> </p> 
 <p  class="focus" style="text-decoration:none; position: absolute;left:90%; top: 050px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
