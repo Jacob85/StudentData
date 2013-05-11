@@ -1,5 +1,4 @@
 <!doctype html>
-<%@page import="com.apple.jobjc.JObjCRuntime.Width"%>
 <%@page import="java.io.File"%>
 <%@page import="java.nio.file.Path"%>
 <%@page import="java.util.List"%>
@@ -36,49 +35,50 @@
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;"><a href="#" >Todo-<%="   "+todoNum %> </a> </p>
+	-moz-transition: all .4s;"><a href="StudentData/cart.jsp" >Todo-<%="   "+todoNum %> </a> </p>
 
 <p  class="focus" style="position: absolute; left: 90%; top: 77px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;"><a href="StudentData/history.jsp">Done- <%="   "+doneNum %> </a></p>
+	-moz-transition: all .4s;"><a href="#">Done- <%="   "+doneNum %> </a></p>
 
 	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="StudentData/homePage.jsp" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
-        	<headLineTag:HeadLinePage headLine="My TODO List"/>
- <div style="position: absolute; left: 39%;right:50%; top: 280px;width: auto;">
+        	<headLineTag:HeadLinePage headLine="My History"/>
+        	    <div style="position: absolute; left: 40%; top: 280px;">
 
+<table  id="filestable" style="border:none;left: 50%;padding: 10px" border="1">
  
  <%
-  if(cartList==null||cartList.size()==0)
+  if(historylist==null||historylist.size()==0)
   {
-	  out.write("<p style=\"width:300px;position:absolute;left:50%;font-size:22px\">");
-	  out.write("Hooray!!! No more TODO</br></br>");		  
-	  
-	  out.write("You can see more files <a href =\"StudentData/homePage.jsp\">here...</a>");
+	  out.write(" <tr style=\"border:none\">");
+	  out.write("<td>");
+	  out.write("You haven't done anything!!! Start working!!!");		  
 	  out.write("</td>");
 	  out.write("</tr>");
-	  out.write("</p>");
+	  out.write(" <tr style=\"border:none\">");
+	  out.write("<td \">");
+	  out.write("You can see the files <a href =\"StudentData/homePage.jsp\">here...</a>");
+	  out.write("</td>");
+	  out.write("</tr>");
   }
   else
   {
-	  	out.write("<table  id=\"filestable\" style=\"border:none;left: 50%;padding: 10px;\">");
 		String subjectUrl="http://localhost:8080/StudentData/StudentData/";
 		String removeActionString="/remove_from_cart=true";
-		for(String item : cartList)
+		for(String item : historylist)
 		{
 			File file=new File(item);
 			String itemName=file.getName();
 			out.write("<tr style='border:none'>"
 				    +"<td ><a href=\""+subjectUrl+item+"\"" +">"+itemName+"</a></td> ");
 			out.write("<td ><a href=\""+subjectUrl+item +"/download\">"+"Download"+"</a></td>");
-			out.write("<td ><a href=\""+subjectUrl+item +removeActionString+"\""+">"+"Done"+"</a></td> </tr>");
-			
+			out.write("<td ><a href=\"#\""+">"+"Remove"+"</a></td> </tr>");
 		}
-		out.write("</table>");
   }
   %>
-
+</table>
 </div>
 </body>
 

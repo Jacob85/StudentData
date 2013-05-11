@@ -36,7 +36,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;">Hello <%=" "+user.getUserName() %>|<a href="http://localhost:8080/StudentData/StudentData/logout=true"> Log out</a> </p> 
+	-moz-transition: all .4s;">Hello <%=" "+user.getUserName() %>|<a href="StudentData/logout=true"> Log out</a> </p> 
 <p  style="text-decoration:none; position: absolute; left: 90%; top: 050px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
@@ -46,7 +46,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
-	-moz-transition: all .4s;"><a href="#">Done- <%="   "+donNum %></a></p>
+	-moz-transition: all .4s;"><a href="StudentData/history.jsp">Done- <%="   "+donNum %></a></p>
 	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="StudentData/homePage.jsp
 	" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
 	
