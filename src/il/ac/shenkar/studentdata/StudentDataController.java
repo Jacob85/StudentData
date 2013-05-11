@@ -231,7 +231,7 @@ public class StudentDataController extends HttpServlet
 		{
 			// here i will invalidate the Session and redirect to the login page
 			req.getSession(true).invalidate();
-			resp.sendRedirect("/Login.jsp");
+			resp.sendRedirect(prefix+"/StudentData/Login.jsp");
 			return;
 			
 		}
