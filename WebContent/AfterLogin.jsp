@@ -4,11 +4,13 @@
 <%@ page import="il.ac.shenkar.studentdata.*" %>
 <%@ page errorPage="errorPage.jsp" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="menu" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="headLineTag" %>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
 <link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
+
 </head>
 <body>
 <%
@@ -40,7 +42,7 @@
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done- <%="   "+doneNum %> </a></p>
 	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="#" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
-        	<div id="headLine"> My Cources</div>
+	<headLineTag:HeadLinePage headLine="My Cources"/>
     <div style="position: absolute; left: 50%; top: 308px;">
 <table  id="filestable" style="border:none"  width="200px" border="1">
 <% 

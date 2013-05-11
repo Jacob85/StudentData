@@ -489,7 +489,7 @@ public class StudentDataController extends HttpServlet
 			try {
 				
 				ServletFileUpload upload = new ServletFileUpload(factory);
-				java.util.List<FileItem> items = upload.parseRequest(req);
+				java.util.List<FileItem> items = upload.parseRequest((RequestContext) req);
 				
 				//create the file
 				FileRecord record = new FileRecord();

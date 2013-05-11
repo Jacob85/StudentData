@@ -4,11 +4,14 @@
 <%@page import="java.util.*"%>
 <%@ page import="il.ac.shenkar.studentdata.*" %>
 <%@ page errorPage="errorPage.jsp" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="menu" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="headLineTag" %>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
 <link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
+<script src="http://localhost:8080/StudentData/js/msg-box.js"></script>
 </head>
 <body>
 <%
@@ -25,6 +28,10 @@
 		donNum=historylist.size();
 	
 %>
+
+<script type="text/javascript">
+
+</script>
 <p  style="position: absolute; left: 5%; top: 050px; height: 34px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
@@ -40,9 +47,9 @@
 	text-decoration: none;
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done- <%="   "+donNum %></a></p>
-<a id="menuitem" href="StudentData/homePage.jsp" style=" left: 30%;">Home Page</a>
-<a id="menuitem" href="StudentData/upload.jsp" style=" left: 50%;">Upload</a>
-<a id="menuitem" href="# " style="left: 70%;">About</a>
+	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="StudentData/homePage.jsp
+	" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
+	
 <div id="headLine">
 	<%
 	FileRecord f=courseFilesList.get(0);
@@ -51,7 +58,7 @@
 </div>
         <p class="tabBar"></p>
         
-    <div style="position: absolute; left: 40%; top: 280px;">
+    <div style="position: absolute; left: 35%; top: 280px;">
 
 <table  id="filestable" style="border:none;left: 50%;padding: 10px" border="1">
  
@@ -85,10 +92,10 @@
 		  out.write(file.getDescription());
 		  out.write("</td>");
 		  out.write("<td>");
-		  out.write("<a href=\""+urlPrefix+"/StudentData"+file.getPath()+"/add_to_cart=true" +"\""+">TODO</a>");
+		  out.write("<a href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/add_to_cart=true" +"\""+">TODO</a>");
 		  out.write("</td>");
 		  out.write("<td>");
-		  out.write("<a href=\""+urlPrefix+"/StudentData"+file.getPath()+"/download" +"\""+">Download</a>");
+		  out.write("<a href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/download" +"\""+">Download</a>");
 		  out.write("</td>");
 		  out.write("</tr>");
 	  }
@@ -96,7 +103,24 @@
   %>
 </table>
 </div>
-
+<%
+String fileExistInTheCartMassage= (String)session.getAttribute("fileExistInTheCartMassage");
+String addFileSuccsedMessage= (String)session.getAttribute("addFileSuccsedMessage");
+if(fileExistInTheCartMassage!=null)
+{
+	out.write("<script type=\"text/javascript\">"+
+			"alert(\""+fileExistInTheCartMassage+"\");"
+	+"</script>");
+	session.setAttribute("fileExistInTheCartMassage", null);
+}
+if(addFileSuccsedMessage!=null)
+{
+	out.write("<script type=\"text/javascript\">"+
+			"alert(\""+addFileSuccsedMessage+"\");"
+	+"</script>");
+	session.setAttribute("addFileSuccsedMessage", null);
+}
+%>
 </body>
 
 </html>

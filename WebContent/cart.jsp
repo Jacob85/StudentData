@@ -58,10 +58,7 @@
 	  out.write("</tr>");
 	  out.write(" <tr style=\"border:none\">");
 	  out.write("<td>");
-	  out.write("You can see more file here...");
-	  out.write("<form name='f2' action='AfterLogin.jsp'>");
-	  out.write("<input type='submit' name='button1' value='Login Page' class='button'>");
-	  out.write("</form>");
+	  out.write("You can see more file <a href =\"StudentData/homePage.jsp\">here...</a>");
 	  out.write("</td>");
 	  out.write("</tr>");
   }

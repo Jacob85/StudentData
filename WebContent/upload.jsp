@@ -2,6 +2,8 @@
 <%@page import="java.util.List"%>
 <%@page import="il.ac.shenkar.studentdata.*" %>
 <%@ page errorPage="errorPage.jsp" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="menu" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="headLineTag" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -36,19 +38,14 @@
 	text-decoration: none;
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="#">Done- <%="   "+doneNum %></a></p>
-	<div id="menues">
-<a id="menuitem" href="StudentData/homePage.jsp" style="left: 30%;"> Home Page </a>
-<a id="menuitem" href="#" style=" left: 50%; opacity:.9">Upload</a>
-<a id="menuitem" href="# " style="left: 70%;">About</a>
-</div>
+<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="StudentData/AfterLogin.jsp" menuItem2Link="#" menuItem3Link="#"/>
+<headLineTag:HeadLinePage headLine="Upload"/>
 <p class="tabBar"></p>
-        
        <div style="position: absolute; left: 42%; top: 101px"> 
-       <p class="focus" style="position: absolute; left: 106px; top: 149px; width: 65px; height: 21px;"><strong>Upload</strong></p>
         <form action="StudentData/upload=true" method="post" enctype="multipart/form-data" 
 name="productForm" id="productForm">
 <input  type="file" name="file" id="file" required>
-<input type="text"  name="description"  class="text-field" placeholder="Description"  requiredrequired>
+<input type="text"  name="description"  class="text-field" placeholder="Description"  required>
  <select style="width: 245px; height: 50px" name="uni" class="text-field"  id="Select1">
     <%
     	for(String uni:r.getUnis())
