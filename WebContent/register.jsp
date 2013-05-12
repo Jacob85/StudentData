@@ -11,10 +11,13 @@
 </head>
 
 <body>
-<% Register r=(Register)session.getAttribute("register");%>
+<% 
+	Register r=(Register)session.getAttribute("register");
+	String userExistMessage=(String)request.getAttribute("userExistMessage");
+%>
 <nav><a href="Login.jsp">Log In</a> | <a href="#" class="focus">Register</a></nav>
 
-<form class="register" action="StudentData/register" method="post">
+<form class="register"  action="StudentData/register" method="post">
 
 	<h2>Register</h2>
 
@@ -48,6 +51,12 @@
     %>
     </select>
     <input type="submit" value="Register Account" class="button" />
+    <%
+	if(userExistMessage!=null)
+	{
+		out.write("<p>"+userExistMessage+"</p>");
+	}
+%>
 
 </form>
 

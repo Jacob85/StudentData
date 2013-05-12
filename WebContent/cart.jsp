@@ -46,30 +46,27 @@
 
 	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="StudentData/homePage.jsp" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
         	<headLineTag:HeadLinePage headLine="My TODO List"/>
- <div style="position: absolute; left: 39%;right:50%; top: 280px;width: auto;">
+ <div style="margin-left:335px;margin-right:auto;margin-top:280px; top: 260px;">
 
  
  <%
   if(cartList==null||cartList.size()==0)
   {
-	  out.write("<p style=\"width:300px;position:absolute;left:50%;font-size:22px\">");
-	  out.write("Hooray!!! No more TODO</br></br>");		  
-	  
+	  out.write("<p style=\"width:300px;position:absolute;left:40%;font-size:22px\">");
+	  out.write("Hooray!!! No more TODO</br></br>");		 
 	  out.write("You can see more files <a 	style=\"text-decoration: none\" href =\"StudentData/homePage.jsp\">here...</a>");
-	  out.write("</td>");
-	  out.write("</tr>");
 	  out.write("</p>");
   }
   else
   {
-	  	out.write("<table  id=\"filestable\" style=\"border:none;left: 50%;padding: 10px;\">");
+	  	out.write("<table id=\"filestable\">");
 		String subjectUrl="http://localhost:8080/StudentData/StudentData/";
 		String removeActionString="/remove_from_cart=true";
 		for(String item : cartList)
 		{
 			File file=new File(item);
 			String itemName=file.getName();
-			out.write("<tr style='border:none'>"
+			out.write("<tr>"
 				    +"<td ><a href=\""+subjectUrl+item+"\"" +">"+itemName+"</a></td> ");
 			out.write("<td ><a href=\""+subjectUrl+item +"/download\">"+"Download"+"</a></td>");
 			out.write("<td ><a href=\""+subjectUrl+item +removeActionString+"\""+">"+"Done"+"</a></td> </tr>");

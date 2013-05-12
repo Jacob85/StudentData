@@ -58,7 +58,7 @@
 </div>
         <p class="tabBar"></p>
         
-    <div style="position: absolute; left: 35%; top: 280px;">
+    <div style="margin-left:210px;margin-right:auto;margin-top:280px; top: 260px;">
 
 <table  id="filestable" style="border:none;left: 50%;padding: 10px" border="1">
  

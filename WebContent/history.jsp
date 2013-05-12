@@ -45,9 +45,8 @@
 
 	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="StudentData/homePage.jsp" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
         	<headLineTag:HeadLinePage headLine="My History"/>
-        	    <div style="position: absolute; left: 40%; top: 280px;">
-
-<table  id="filestable" style="border:none;left: 50%;padding: 10px" border="1">
+ <div style="margin-left:550px;margin-right:auto;margin-top:280px; top: 260px;">
+<table  id="filestable" >
  
  <%
   if(historylist==null||historylist.size()==0)
@@ -66,7 +65,7 @@
   else
   {
 		String subjectUrl="http://localhost:8080/StudentData/StudentData/";
-		String removeActionString="/remove_from_cart=true";
+		String removeActionString="/remove_from_historyt=true";
 		for(String item : historylist)
 		{
 			File file=new File(item);
@@ -74,11 +73,12 @@
 			out.write("<tr style='border:none'>"
 				    +"<td ><a href=\""+subjectUrl+item+"\"" +">"+itemName+"</a></td> ");
 			out.write("<td ><a href=\""+subjectUrl+item +"/download\">"+"Download"+"</a></td>");
-			out.write("<td ><a href=\"#\""+">"+"Remove"+"</a></td> </tr>");
+			out.write("<td ><a href=\""+subjectUrl+item+removeActionString+"\""+">"+"Remove"+"</a></td> </tr>");
 		}
   }
   %>
 </table>
+</div>
 </div>
 </body>
 
