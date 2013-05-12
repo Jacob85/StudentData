@@ -95,10 +95,29 @@ public class StudentDataController extends HttpServlet
 			this.cartTransaction(req, resp, Cart.ADD);
 			return;
 		}
+		case "remove_from_historyt=true":
+		{
+			this.cartTransaction(req, resp, Cart.REMOVEFROMHISTORY);
+			return;
+		}
+		case "clear_cart=true":
+		{
+			this.cartTransaction(req, resp, Cart.CLEARCART);
+			return;
+		}
+		case "clear_history=true":
+		{
+			this.cartTransaction(req, resp, Cart.CLEARHISTORY);
+			return;
+		}
 		case "upload.jsp":
 		{
 			try {
-				//TODO: check if the session didn't timeout
+				if (!IsSessionValidate(req, resp))
+				{
+					getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
+					return;
+				}
 				Register register = new Register();
 				register.getLists();
 				// attached the register OB to the Session OB
@@ -108,7 +127,6 @@ public class StudentDataController extends HttpServlet
 				getServletContext().getRequestDispatcher("/upload.jsp").forward(req, resp);
 				return;
 			} catch (Exception e) {
-				// TODO: handle exception
 				logger.error("faild to forword to /upload.jsp");
 				return;
 			}
@@ -339,9 +357,9 @@ public class StudentDataController extends HttpServlet
 			if (UserDAO.getInstance().isExist(req.getParameter("email")))
 			{
 				// user is already exists
-				req.setAttribute("massage","User "+ req.getParameter("email") +" is allready exists");
+				req.setAttribute("userExistMessage","User "+ req.getParameter("email") +" is allready exists");
 				logger.info("User "+ req.getParameter("email") +" is allready exists");
-				getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
+				getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
 				return;
 			}
 			logger.info("User does not exists in the DB, Creating new User");
@@ -547,44 +565,7 @@ public class StudentDataController extends HttpServlet
 		default:
 			break;
 		}
-		
-		
-		
-		
-/*		String path = "uni/trend/year/course";
-		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-		System.out.println("request: "+req);
-		if (!isMultipart)
-		{
-			System.out.println("File Not Uploaded");
-		} 
-		else 
-		{
-			FileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			java.util.List<FileItem> items = null;
-			try
-			{
-				items = upload.parseRequest(req);
-				System.out.println("items: "+items);
-				
-				path += "/"+ items.get(0).getName();
-				if (FileSystemHandler.getInstande().saveFile(items.get(0),path) == 1)
-				{	
-					FileRecord record = new FileRecord(0, "uni", "trend", "year", "course", path , 0);
-					FileRecordDAO.getInstance().addRecord(record);
-					getServletContext().getRequestDispatcher("/it_works.jsp").forward(req, resp);
-				}
-
-			} catch (FileUploadException e) 
-			{
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			}
-		*/
-		}
+	}
 	public boolean IsSessionValidate(HttpServletRequest req, HttpServletResponse resp)
 	{
 		//get the session
@@ -639,7 +620,7 @@ public class StudentDataController extends HttpServlet
 			//forward the request to FilesPage.jsp 
 			resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
 		}
-		else
+		else if (direction == Cart.REMOVED)
 		{
 			//remove from cart & adding to history
 			user.removeFromCart(filename);								
@@ -658,12 +639,56 @@ public class StudentDataController extends HttpServlet
 			//forward the request to FilesPage.jsp
 			resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
 		}
+		else if (direction == Cart.REMOVEFROMHISTORY)
+		{
+			//removing the file from the history
+			user.removeFromHistory(filename);
+			
+			// create new Files History file and attached it to the Session
+			java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
+			session.setAttribute("history", filesHistory);
+			session.setAttribute("massage","File: " + filename+ " was remove from history list");
+			logger.info("File: " + filename+ " was remove from the history list");
+			// update the DB
+			UserDAO.getInstance().updateRecord(user);
+			//forward the request to FilesPage.jsp
+			resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
+		}
+		else if (direction == Cart.CLEARHISTORY)
+		{
+			//clearing the history
+			user.clearHistory();
+			// attached an empty list of files history
+			java.util.List<String> historyList = new ArrayList<String>();
+			session.setAttribute("history",historyList );
+			logger.info("file history was clear");
+			// update the DB
+			UserDAO.getInstance().updateRecord(user);
+			//forward the request to FilesPage.jsp
+			resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
+		}
+		else if (direction == Cart.CLEARCART)
+		{
+			user.clearCart();
+			
+			// create new Files History file and attached it to the Session
+			java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
+			session.setAttribute("history", filesHistory);
+			session.setAttribute("cart", new ArrayList<String>());		/* attached a new cart ob to the session*/
+			session.setAttribute("massage","TODO File list eas clear");
+			// update the DB
+			UserDAO.getInstance().updateRecord(user);
+			//forward the request to FilesPage.jsp
+			resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
+		}
+		
+		
 		return;
 	}
 	
 	public enum Cart
 	{
-		ADD,REMOVED
+		ADD,REMOVED,REMOVEFROMHISTORY,CLEARCART,CLEARHISTORY
 	}
 		
 }
