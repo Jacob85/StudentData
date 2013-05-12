@@ -193,4 +193,42 @@ public class User
 		return;
 		
 	}
+	
+	public void removeFromHistory(String fileName)
+	{
+		//remove the file from the list
+		this.filesHistory = this.filesHistory.replace(fileName, "");
+		logger.info("Removind "+ fileName + " files History list");
+		
+		//remove the duplicate separetor if exists  
+		this.filesHistory = filesHistory.replace("%%","%");
+		
+		if (filesHistory.startsWith("%"))
+			filesHistory = filesHistory.replaceFirst("%", "");
+		
+		if (this.filesHistory.isEmpty())
+			filesHistory = "none";
+		
+		return;
+	}
+	
+	public void clearHistory()
+	{
+		this.filesHistory = "none";
+	}
+	
+	public void clearCart()
+	{
+		//check if the file history id empty
+		if (filesHistory.equals("none"))
+			this.setFilesHistory(this.getFilesToView());
+		else
+			this.setFilesHistory(this.getFilesHistory() + "%" + this.getFilesToView());
+		
+		// put the cart content in the history list & clear the cart
+		this.setFilesToView("none");
+		logger.info("Copy all items from cart to history and clear the cart");
+		return;
+
+	}
 }
