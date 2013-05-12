@@ -55,7 +55,7 @@
 	  out.write("<p style=\"width:300px;position:absolute;left:50%;font-size:22px\">");
 	  out.write("Hooray!!! No more TODO</br></br>");		  
 	  
-	  out.write("You can see more files <a href =\"StudentData/homePage.jsp\">here...</a>");
+	  out.write("You can see more files <a 	style=\"text-decoration: none\" href =\"StudentData/homePage.jsp\">here...</a>");
 	  out.write("</td>");
 	  out.write("</tr>");
 	  out.write("</p>");
