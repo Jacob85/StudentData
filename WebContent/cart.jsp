@@ -27,7 +27,7 @@
 	if(historylist!=null)
 		doneNum=historylist.size();
 %>
-<p  class="focus" style="position: absolute; left: 5%; top: 050px; width: 137px; height: 34px;color: #4889C2;
+<p  class="focus" style="position: absolute; left: 5%; top: 050px; width: 200px; height: 34px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
@@ -48,7 +48,6 @@
         	<headLineTag:HeadLinePage headLine="My TODO List"/>
  <div style="margin-left:335px;margin-right:auto;margin-top:280px; top: 260px;">
 
- 
  <%
   if(cartList==null||cartList.size()==0)
   {
@@ -59,6 +58,7 @@
   }
   else
   {
+	  out.write("<a style=\"margin-left: 295px;\" href=\"StudentData/clear_cart=true\">Remove all</a> <br><br>");
 	  	out.write("<table id=\"filestable\">");
 		String subjectUrl="http://localhost:8080/StudentData/StudentData/";
 		String removeActionString="/remove_from_cart=true";
@@ -75,7 +75,6 @@
 		out.write("</table>");
   }
   %>
-
 </div>
 </body>
 

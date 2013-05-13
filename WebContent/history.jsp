@@ -45,25 +45,26 @@
 
 	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="StudentData/homePage.jsp" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
         	<headLineTag:HeadLinePage headLine="My History"/>
- <div style="margin-left:550px;margin-right:auto;margin-top:280px; top: 260px;">
+ <div style="margin-left:335px;margin-right:auto;margin-top:280px; top: 260px;">
 <table  id="filestable" >
  
  <%
   if(historylist==null||historylist.size()==0)
   {
-	  out.write(" <tr style=\"border:none\">");
+	  out.write(" <tr>");
 	  out.write("<td>");
 	  out.write("You haven't done anything!!! Start working!!!");		  
 	  out.write("</td>");
 	  out.write("</tr>");
-	  out.write(" <tr style=\"border:none\">");
-	  out.write("<td \">");
+	  out.write(" <tr>");
+	  out.write("<td>");
 	  out.write("You can see the files <a href =\"StudentData/homePage.jsp\">here...</a>");
 	  out.write("</td>");
 	  out.write("</tr>");
   }
   else
   {
+	  out.write("<a style=\"margin-left: 295px;\" href=\"StudentData/clear_history=true\">Remove all</a> <br><br>");
 		String subjectUrl="http://localhost:8080/StudentData/StudentData/";
 		String removeActionString="/remove_from_historyt=true";
 		for(String item : historylist)
@@ -78,7 +79,6 @@
   }
   %>
 </table>
-</div>
 </div>
 </body>
 
