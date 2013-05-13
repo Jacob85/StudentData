@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Home page</title>
-<link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
+<link rel="stylesheet" href="https://studentportal-jscapps.rhcloud.com/StudentData/css/style.css">
 
 </head>
 <body>

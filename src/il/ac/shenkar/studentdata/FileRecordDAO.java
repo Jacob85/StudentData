@@ -165,7 +165,7 @@ public class FileRecordDAO implements IDataBaseActions
 			Session session = factory.openSession();
 			try {
 				session.beginTransaction();
-				java.util.List list = session.createQuery("from files").list();
+				java.util.List list = session.createQuery("from FileRecord").list();
 				session.getTransaction().commit();
 				logger.info("Query success, return list of all File Records");
 				return list;
@@ -204,13 +204,18 @@ public class FileRecordDAO implements IDataBaseActions
 
 		public ArrayList<FileRecord> searchFiles(String str)
 		{
+			if (str == null)
+			{
+				logger.error("Error!, sub string to search is null");
+				return null;
+			}
 			ArrayList<FileRecord> allResults = (ArrayList<FileRecord>) this.getAllRecords();
 			logger.debug("Query the DB, returned a list of "+ allResults.size()+" File records");
 			ArrayList<FileRecord> relevantResults = new ArrayList<>();
 			
 			for (FileRecord record: allResults)
 			{
-				if (record.getDescription().contains(str) || record.getTrend().contains(str) || record.getSubject().contains(str))
+				if (record.getDescription().contains(str) || record.getTrend().contains(str) || record.getSubject().contains(str) || record.getPath().contains(str))
 				{
 					relevantResults.add(record);
 					logger.info("Adding "+record.getPath() + " to the returned Relevand list");

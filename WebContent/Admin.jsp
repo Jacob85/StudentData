@@ -32,6 +32,14 @@
     <input  type="submit" value="Add" class="button" /><br><br>
 </form>
 
+<form method="get" action="StudentData/search">
+
+	<h2>Search</h2>
+
+	<input type="text"  name="substring" size="80"  class="text-field" placeholder="substring" />
+    <input  type="submit" value="Search" class="button" /><br><br>
+</form>
+
 
 </body>
 </html>

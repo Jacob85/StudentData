@@ -10,8 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
-<link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
-<script src="http://localhost:8080/StudentData/js/msg-box.js"></script>
+<link rel="stylesheet" href="https://studentportal-jscapps.rhcloud.com/StudentData/css/style.css">
+<script src="https://studentportal-jscapps.rhcloud.com/StudentData/js/msg-box.js"></script>
 </head>
 <body>
 <%

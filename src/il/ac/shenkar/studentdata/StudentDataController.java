@@ -289,8 +289,24 @@ public class StudentDataController extends HttpServlet
 	        in.close();
 	        out.close();
 		}
+		case "search":
+		{
+			/*if (!IsSessionValidate(req, resp))
+			{
+				//mean the user need t login first. the Session is timeout
+				logger.info("Session timeout or new session, forword the user to login");
+				getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
+				return;
+			}*/
+			ArrayList<FileRecord> searchResults = FileRecordDAO.getInstance().searchFiles(req.getParameter("substring"));
+			req.setAttribute("searchResults", searchResults);
+			logger.info("found: "+searchResults.size()+"for the sub string: "+req.getParameter("substring"));
+			//TODO: to forward the request to some where;
+		}
 		default:
+		{
 			break;
+		}
 		}
 	}
 
@@ -614,6 +630,9 @@ public class StudentDataController extends HttpServlet
 			java.util.List<String> filesList1 = parser.getFileList(user.getFilesToView());
 			session.setAttribute("cart",filesList1);
 			session.setAttribute("addFileSuccsedMessage","File: " + parser.getNameFromPath(filename)+ " was added to the cart list");
+			//update the subject list
+			ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList(filesList1);;
+			session.setAttribute("subjects", subjectList);
 			logger.info("File: " + parser.getNameFromPath(filename)+ " was added to the cart list");
 			// update the DB
 			UserDAO.getInstance().updateRecord(user);
