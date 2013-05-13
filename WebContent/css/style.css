@@ -16,6 +16,15 @@ body {
 	
 }
 
+#searchLine
+{
+	position:absolute;
+	height: 0px;
+	box-shadow:none;
+	padding: 0px;
+	top:1000px;
+	
+}
 h2 {
 	color: #a6a6a6;
 }
@@ -32,7 +41,7 @@ nav {
 }
 #filestable tr 
 {
-	width: 400px;
+	width: 200px;
 }
 #filestable tr td
 {
@@ -187,3 +196,33 @@ form .button:active {
 	
 	box-shadow: inset 0 0 2px rgba(0,0,0, .3), 0 1px 0 white;
 }
+.tooltip{
+   			display: inline;
+    		position: relative;
+		}
+		
+		.tooltip:hover:after{
+    		background: #333;
+    		background: rgba(0,0,0,.8);
+    		border-radius: 5px;
+    		color: #fff;
+    		content: attr(title);
+    		left: 20%;
+    		bottom:75px;
+    		padding: 5px 15px;
+    		position: absolute;
+    		z-index: 98;
+    		width: 220px;
+		}
+		
+		.tooltip:hover:before{
+    		border: solid;
+    		border-color: #333 transparent;
+    		border-width: 6px 6px 0 6px;
+    		bottom: 20px;
+    		content: "";
+    		left: 50%;
+    		position: absolute;
+    		z-index: 99;
+		}
+	

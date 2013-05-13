@@ -10,8 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
-<link rel="stylesheet" href="https://studentportal-jscapps.rhcloud.com/StudentData/css/style.css">
-<script src="https://studentportal-jscapps.rhcloud.com/StudentData/js/msg-box.js"></script>
+<link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
 </head>
 <body>
 <%
@@ -21,6 +20,7 @@
 	List<String> cartList=(List<String>)  session.getAttribute("cart");
 	List<String> historylist = (List<String>) session.getAttribute("history");
 	List<FileRecord> userFilesList= (List<FileRecord>)session.getAttribute("userFiles");
+	List<FileRecord> searchResult= (List<FileRecord>)request.getAttribute("searchResults");
 	List<FileRecord> courseFilesList= (List<FileRecord>)session.getAttribute("courseFiles");
 	if(cartList!=null)
 		todoNum=cartList.size();
@@ -52,8 +52,15 @@
 	
 <div id="headLine">
 	<%
-	FileRecord f=courseFilesList.get(0);
-	out.write(f.getSubject()+" Files");
+	if(searchResult!=null)
+	{
+		out.write("Search result Files");
+	}
+	else
+	{
+		FileRecord f=courseFilesList.get(0);
+		out.write(f.getSubject()+" Files");
+	}
 	%>
 </div>
         <p class="tabBar"></p>
@@ -63,21 +70,14 @@
 <table  id="filestable" style="border:none;left: 50%;padding: 10px" border="1">
  
   <%
+  if(searchResult!=null)
+	  courseFilesList=searchResult;
   if(courseFilesList==null||courseFilesList.size()==0)
   {
-	  out.write(" <tr style=\"border:none\">");
-	  out.write("<td>");
-	  out.write("Sory,No files for this course...");		  
-	  out.write("</td>");
-	  out.write("</tr>");
-	  out.write(" <tr style=\"border:none\">");
-	  out.write("<td>");
-	  out.write("But you can add if you want");
-	  out.write("<form name='f2' action='http://localhost:8080/StudentData/.jsp'>");
-	  out.write("<input type='submit' name='button1' value='Login Page' class='button'>");
-	  out.write("</form>");
-	  out.write("</td>");
-	  out.write("</tr>");
+	  out.write("<p style=\"width:300px;position:absolute;left:43%;font-size:22px\">");
+	  out.write("Sory,no files was found</br></br>");		 
+	  out.write("You can add <a style=\"text-decoration: none\" href =\"StudentData/upload.jsp\">here...</a>");
+	  out.write("</p>");
   }
   else
   {
@@ -92,10 +92,10 @@
 		  out.write(file.getDescription());
 		  out.write("</td>");
 		  out.write("<td>");
-		  out.write("<a href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/add_to_cart=true" +"\""+">TODO</a>");
+		  out.write("<a title=\"Press TODO \" class=\"tooltip\" href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/add_to_cart=true" +"\""+"><img src=\"http://localhost:8080/StudentData/img/add2.png\" /></a>");
 		  out.write("</td>");
 		  out.write("<td>");
-		  out.write("<a href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/download" +"\""+">Download</a>");
+		  out.write("<a title=\"Press to download the file\" class=\"tooltip\" href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/download" +"\""+"><img src=\"http://localhost:8080/StudentData/img/download.png\" /></a>");
 		  out.write("</td>");
 		  out.write("</tr>");
 	  }

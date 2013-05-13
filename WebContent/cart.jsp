@@ -47,11 +47,11 @@
 	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="StudentData/homePage.jsp" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
         	<headLineTag:HeadLinePage headLine="My TODO List"/>
  <div style="margin-left:335px;margin-right:auto;margin-top:280px; top: 260px;">
-
+<table  id="filestable" >
  <%
   if(cartList==null||cartList.size()==0)
   {
-	  out.write("<p style=\"width:300px;position:absolute;left:40%;font-size:22px\">");
+	  out.write("<p style=\"width:300px;position:absolute;left:43%;font-size:22px\">");
 	  out.write("Hooray!!! No more TODO</br></br>");		 
 	  out.write("You can see more files <a 	style=\"text-decoration: none\" href =\"StudentData/homePage.jsp\">here...</a>");
 	  out.write("</p>");
@@ -59,7 +59,6 @@
   else
   {
 	  out.write("<a style=\"margin-left: 295px;\" href=\"StudentData/clear_cart=true\">Remove all</a> <br><br>");
-	  	out.write("<table id=\"filestable\">");
 		String subjectUrl="http://localhost:8080/StudentData/StudentData/";
 		String removeActionString="/remove_from_cart=true";
 		for(String item : cartList)
@@ -68,13 +67,14 @@
 			String itemName=file.getName();
 			out.write("<tr>"
 				    +"<td ><a href=\""+subjectUrl+item+"\"" +">"+itemName+"</a></td> ");
-			out.write("<td ><a href=\""+subjectUrl+item +"/download\">"+"Download"+"</a></td>");
-			out.write("<td ><a href=\""+subjectUrl+item +removeActionString+"\""+">"+"Done"+"</a></td> </tr>");
+			out.write("<td ><a  href=\""+subjectUrl+item +"/download\">"+"<img title=\"Press to download the file\" class=\"tooltip\" src=\"http://localhost:8080/StudentData/img/download.png\" />"+"</a></td>");
+			out.write("<td ><a title=\"Press to mark as done\" class=\"tooltip\" href=\""+subjectUrl+item +removeActionString+"\""+">"+"<img src=\"http://localhost:8080/StudentData/img/done.png\" />"+"</a></td> </tr>");
 			
 		}
 		out.write("</table>");
   }
   %>
+  </table>
 </div>
 </body>
 

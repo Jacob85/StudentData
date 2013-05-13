@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
-<link rel="stylesheet" href="https://studentportal-jscapps.rhcloud.com/StudentData/css/style.css">
+<link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
 </head>
 <body>
 <%
@@ -26,7 +26,7 @@
 	if(historylist!=null)
 		doneNum=historylist.size();
 %>
-<p  class="focus" style="position: absolute; left: 5%; top: 050px; width: 137px; height: 34px;color: #4889C2;
+<p  class="focus" style="position: absolute; left: 5%; top: 050px; width: 200px; height: 34px;color: #4889C2;
 	font-weight: bold;
 	text-decoration: none;
 	opacity: .9;
@@ -51,16 +51,10 @@
  <%
   if(historylist==null||historylist.size()==0)
   {
-	  out.write(" <tr>");
-	  out.write("<td>");
-	  out.write("You haven't done anything!!! Start working!!!");		  
-	  out.write("</td>");
-	  out.write("</tr>");
-	  out.write(" <tr>");
-	  out.write("<td>");
-	  out.write("You can see the files <a href =\"StudentData/homePage.jsp\">here...</a>");
-	  out.write("</td>");
-	  out.write("</tr>");
+	  out.write("<p style=\"width:300px;position:absolute;left:43%;font-size:22px\">");
+	  out.write("You haven't done anything!!! Start working!!!</br></br>");		 
+	  out.write("You can see more files <a 	style=\"text-decoration: none\" href =\"StudentData/homePage.jsp\">here...</a>");
+	  out.write("</p>");
   }
   else
   {
@@ -73,8 +67,8 @@
 			String itemName=file.getName();
 			out.write("<tr style='border:none'>"
 				    +"<td ><a href=\""+subjectUrl+item+"\"" +">"+itemName+"</a></td> ");
-			out.write("<td ><a href=\""+subjectUrl+item +"/download\">"+"Download"+"</a></td>");
-			out.write("<td ><a href=\""+subjectUrl+item+removeActionString+"\""+">"+"Remove"+"</a></td> </tr>");
+			out.write("<td ><a title=\"Press to download the file\" class=\"tooltip\" href=\""+subjectUrl+item +"/download\">"+"<img src=\"http://localhost:8080/StudentData/img/download.png\" />"+"</a></td>");
+			out.write("<td ><a title=\"Press to remove the file\" class=\"tooltip\" href=\""+subjectUrl+item+removeActionString+"\""+">"+"<img src=\"http://localhost:8080/StudentData/img/remove.png\" />"+"</a></td> </tr>");
 		}
   }
   %>

@@ -302,6 +302,8 @@ public class StudentDataController extends HttpServlet
 			ArrayList<FileRecord> searchResults = FileRecordDAO.getInstance().searchFiles(req.getParameter("substring"));
 			req.setAttribute("searchResults", searchResults);
 			logger.info("found: "+searchResults.size()+"for the sub string: "+req.getParameter("substring"));
+			getServletContext().getRequestDispatcher("/FilesPage.jsp").forward(req, resp);
+			return;
 			//TODO: to forward the request to some where;
 		}
 		default:
@@ -524,7 +526,7 @@ public class StudentDataController extends HttpServlet
 			try {
 				
 				ServletFileUpload upload = new ServletFileUpload(factory);
-				java.util.List<FileItem> items = upload.parseRequest(req);
+				java.util.List<FileItem> items = upload.parseRequest((RequestContext) req);
 				
 				//create the file
 				FileRecord record = new FileRecord();
