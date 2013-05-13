@@ -288,6 +288,7 @@ public class StudentDataController extends HttpServlet
 	        }
 	        in.close();
 	        out.close();
+	        return;
 		}
 		case "search":
 		{
@@ -548,19 +549,36 @@ public class StudentDataController extends HttpServlet
 					// attached a massage 
 					req.setAttribute("massage","File: " +items.get(0).getName() +" was upload sucssesfuly!");
 					
-					if (record.getYear().equals(user.getYear()) && record.getTrend().equals(user.getTrend()) && record.getUniversity().equals(user.getUniversity()))
-					{
-						//mean the file should be in the user files so we will update it
-						//get the files list from the Session
-						java.util.List filesList = (java.util.List) session.getAttribute("userFiles");
-						//add the current file to the files list
-						filesList.add(record);
-						ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList(filesList);
-						
-						//attached the object i modified to the session again
-						session.setAttribute("subjects", subjectList);
-						session.setAttribute("userFiles", filesList);
-					}
+					String[] columns = {"university", "trend","year"};
+					String[] conditionls = {user.getUniversity(), user.getTrend(), user.getYear()};
+					java.util.List filesList = FileRecordDAO.getInstance().getRecordsWhere(columns, conditionls);
+					ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList(filesList);
+					
+					// attached the list & the user to the Session
+					HttpSession currSession = req.getSession();
+					currSession.setAttribute("userFiles", filesList);
+					currSession.setAttribute("user", user);
+					currSession.setAttribute("subjects", subjectList);
+					
+					java.util.List<String> filesList1 = parser.getFileList(user.getFilesToView());
+					currSession.setAttribute("cart",filesList1);
+					
+					java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
+					currSession.setAttribute("history", filesHistory);
+					currSession.setAttribute("prefix", prefixTest);
+
+					
+					/*//mean the file should be in the user files so we will update it
+					//get the files list from the Session
+					java.util.List filesList = (java.util.List) session.getAttribute("userFiles");
+					//add the current file to the files list
+					filesList.add(record);
+					ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList(filesList);
+					
+					//attached the object i modified to the session again
+					session.setAttribute("subjects", subjectList);
+					session.setAttribute("userFiles", filesList);
+				*/
 					//Forward the request to after login again
 					req.getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
 					return;
@@ -631,7 +649,7 @@ public class StudentDataController extends HttpServlet
 			session.setAttribute("cart",filesList1);
 			session.setAttribute("addFileSuccsedMessage","File: " + parser.getNameFromPath(filename)+ " was added to the cart list");
 			//update the subject list
-			ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList(filesList1);;
+			ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList((java.util.List) session.getAttribute("userFiles"));
 			session.setAttribute("subjects", subjectList);
 			logger.info("File: " + parser.getNameFromPath(filename)+ " was added to the cart list");
 			// update the DB

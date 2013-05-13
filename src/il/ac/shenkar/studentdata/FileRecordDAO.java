@@ -151,7 +151,7 @@ public class FileRecordDAO implements IDataBaseActions
 					// only if the current file record subject does not appear in the list i want to return
 					// only them i will add it to the return list
 					logger.info("Add: "+fileRecord.getSubject()+ "to the list to return");
-					subjectList.add(((FileRecord) filesList.get(i)).getSubject());
+					subjectList.add(fileRecord.getSubject());
 				}
 			}
 			logger.info("return the subject list");
