@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.hibernate.mapping.List;
 
+import sun.security.util.Length;
+
 public class RequestParser 
 {
 	private final String relativePath = "/StudentData/";
@@ -125,4 +127,15 @@ public class RequestParser
 		return null;
 	}
 
+	public String getNameFromPath(String path)
+	{
+		if (path == null)
+			return null;
+		if (path.isEmpty())
+			return null;
+		String[] tokens = path.split("/");
+		logger.info("File name is: " + tokens[tokens.length-1]);
+		return tokens[tokens.length -1];
+		
+	}
 }

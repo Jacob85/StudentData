@@ -507,7 +507,7 @@ public class StudentDataController extends HttpServlet
 			try {
 				
 				ServletFileUpload upload = new ServletFileUpload(factory);
-				java.util.List<FileItem> items = upload.parseRequest((RequestContext) req);
+				java.util.List<FileItem> items = upload.parseRequest(req);
 				
 				//create the file
 				FileRecord record = new FileRecord();
@@ -603,8 +603,8 @@ public class StudentDataController extends HttpServlet
 			//check if the file name exists in the cart list already
 			if (user.isExistInCart(filename))
 			{
-				session.setAttribute("fileExistInTheCartMassage","File: " + filename+ " already exists in the cart");
-				logger.info("File: " + filename+ " already exists in the cart");
+				session.setAttribute("fileExistInTheCartMassage","File: " + parser.getNameFromPath(filename)+ " already exists in the cart");
+				logger.info("File: " +parser.getNameFromPath(filename)+ " already exists in the cart");
 				//forward the request to FilesPage.jsp
 				resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
 				return;
@@ -613,8 +613,8 @@ public class StudentDataController extends HttpServlet
 			// update the cart list and add it to the session
 			java.util.List<String> filesList1 = parser.getFileList(user.getFilesToView());
 			session.setAttribute("cart",filesList1);
-			session.setAttribute("addFileSuccsedMessage","File: " + filename+ " was added to the cart list");
-			logger.info("File: " + filename+ " was added to the cart list");
+			session.setAttribute("addFileSuccsedMessage","File: " + parser.getNameFromPath(filename)+ " was added to the cart list");
+			logger.info("File: " + parser.getNameFromPath(filename)+ " was added to the cart list");
 			// update the DB
 			UserDAO.getInstance().updateRecord(user);
 			//forward the request to FilesPage.jsp 
@@ -632,8 +632,8 @@ public class StudentDataController extends HttpServlet
 			// create new Files History file and attached it to the Session
 			java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
 			session.setAttribute("history", filesHistory);
-			session.setAttribute("massage","File: " + filename+ " was remove from cart and added to the history list");
-			logger.info("File: " + filename+ " was remove from cart and added to the history list");
+			session.setAttribute("massage","File: " + parser.getNameFromPath(filename)+ " was remove from cart and added to the history list");
+			logger.info("File: " + parser.getNameFromPath(filename)+ " was remove from cart and added to the history list");
 			// update the DB
 			UserDAO.getInstance().updateRecord(user);
 			//forward the request to FilesPage.jsp
@@ -647,8 +647,8 @@ public class StudentDataController extends HttpServlet
 			// create new Files History file and attached it to the Session
 			java.util.List<String> filesHistory = parser.getFileList(user.getFilesHistory());
 			session.setAttribute("history", filesHistory);
-			session.setAttribute("massage","File: " + filename+ " was remove from history list");
-			logger.info("File: " + filename+ " was remove from the history list");
+			session.setAttribute("massage","File: " + parser.getNameFromPath(filename)+ " was remove from history list");
+			logger.info("File: " + parser.getNameFromPath(filename)+ " was remove from the history list");
 			// update the DB
 			UserDAO.getInstance().updateRecord(user);
 			//forward the request to FilesPage.jsp
@@ -681,8 +681,6 @@ public class StudentDataController extends HttpServlet
 			//forward the request to FilesPage.jsp
 			resp.sendRedirect(req.getHeader("referer"));  /*this will redirect the request back to the page who sent the request*/
 		}
-		
-		
 		return;
 	}
 	
