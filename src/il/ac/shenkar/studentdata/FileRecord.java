@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 import sun.util.logging.resources.logging;
 
+/**
+ * The File Record class is a class that represent Files
+ * According to this class the Hibernate knows to which table to write or read the objects from 
+ * 
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class FileRecord
 {
 	private int id;
@@ -87,6 +94,11 @@ public class FileRecord
 		this.description = description;
 	}
 
+	/**
+	 * built the path to the file location
+	 * path will look like this uni/trend/year/course
+	 * @return String of the file path
+	 */
 	public String builtPath()
 	{
 		/*	path look like this uni/trend/year/course*/
@@ -99,14 +111,23 @@ public class FileRecord
 		return builder.toString();
 	}
 	
+	/**
+	 * This function return a new ArrayList of the FileRecord Objects that belongs to the same course of the requested
+	 * @param ArrayList<FileRecord>  fromList
+	 * @param String course
+	 * @return ArrayList<FileRecord> Results or null if fails
+	 */
 	public ArrayList<FileRecord> getFilesWithCourse(ArrayList<FileRecord> fromList,String course)
 	{
+		// if the course is null or the from list is null we return null
 		if (course == null || fromList == null )
 		{
 			return null;
 		}
+		// create the new Array List
 		ArrayList<FileRecord> listToReturn = new ArrayList<FileRecord>();
 		
+		// go over the from list and add the matches records to the new list
 		for (FileRecord record: fromList)
 		{
 			if (record.getSubject().equals(course))

@@ -1,5 +1,11 @@
 package il.ac.shenkar.studentdata;
-
+/**
+ * The Uni Record class is a class that represent Unis
+ * According to this class the Hibernate knows to which table to write or read the objects from 
+ * 
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class UniRecord
 {
 	private String Uniname;

@@ -7,6 +7,12 @@ import org.hibernate.mapping.List;
 
 import sun.security.util.Length;
 
+/**
+ * the request parser class allow the user to parse the requests uri in order to determine what to do 
+ * with the request
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class RequestParser 
 {
 	private final String relativePath = "/StudentData/";
@@ -107,8 +113,15 @@ public class RequestParser
 		return listToReturn;
 	}
 	
+	/**
+	 * Gets a path to a file, parse the path and get the course name from the position
+	 * 
+	 * @param String - path
+	 * @return String - course name
+	 */
 	public String getCourseFromPath(String Path)
 	{
+		// if the course is null return null
 		if (Path == null)
 		{
 			logger.error("getCourseFromPath was called with String null");
@@ -120,19 +133,30 @@ public class RequestParser
 			course = course.replaceAll("%20", " ");							/*replace the %20 to space*/
 			String[] tokens = course.split(separetor);
 			course = tokens[tokens.length-1];
+			// return the course name
 			logger.info("Course is: "+course);
 			return course;
 		}
+		
+		// return null because the  uri i received was wrong 
 		logger.error("Wrong Course Query, uri: "+Path + " does not contain '/get_files=true' return 0");
 		return null;
 	}
 
+	
+	/**
+	 * Received a file path and return the file name
+	 * @param path
+	 * @return file name
+	 */
 	public String getNameFromPath(String path)
 	{
+	
 		if (path == null)
 			return null;
 		if (path.isEmpty())
 			return null;
+		// split the path and return the last place in the String[]
 		String[] tokens = path.split("/");
 		logger.info("File name is: " + tokens[tokens.length-1]);
 		return tokens[tokens.length -1];

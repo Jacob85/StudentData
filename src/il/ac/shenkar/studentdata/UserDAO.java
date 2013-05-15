@@ -7,6 +7,15 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
 import org.hibernate.mapping.List;
 
+/**
+ * The User DAO class is a class that Access the DB to get the Users from there
+ * it implements the IDataBaseActions interface in order to access the DB
+ * This class Read & Write the User Objects to the Right table in the DB  
+ * Implemented as a Singleton 
+ * 
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class UserDAO implements IDataBaseActions
 {
 	private static UserDAO instance = null;
@@ -81,6 +90,12 @@ public class UserDAO implements IDataBaseActions
 		return null;
 	}
 	
+	/**
+	 * check if the user is exist in the DB 
+	 * 
+	 * @param id
+	 * @return boolean
+	 */
 	public boolean isExist(String id)
 	{
 		Session session = factory.openSession();

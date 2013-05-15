@@ -8,6 +8,12 @@ import org.hibernate.mapping.List;
 
 import sun.misc.JavaUtilJarAccess;
 
+/**
+ * The Register Class is a Java Been Object that hold lists of data it get from the DB
+ * The Register Class is used to display the dropdown option in the controller
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class Register implements Serializable
 {
 	private java.util.List<String> unis;
@@ -41,6 +47,11 @@ public class Register implements Serializable
 		this.trends = trends;
 	}
 
+	/**
+	 * the get list method fill the list with data it gets from the DB
+	 * 
+	 * 
+	 */
 	public void getLists()
 	{
 		java.util.List<UniRecord> unilist = (java.util.List<UniRecord>) UniDAO.getInstance().getAllRecords();

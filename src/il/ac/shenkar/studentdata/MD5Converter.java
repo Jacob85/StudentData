@@ -8,9 +8,11 @@ import org.apache.log4j.Logger;
 
 
 /**
- * @author Jacob 
+ * The MD5 Converter Class allow us to manipulate strings and to encrypt them
+ * @author Jacob, Cadan & Shimon
  *
  */
+
 public class MD5Converter 
 {
 

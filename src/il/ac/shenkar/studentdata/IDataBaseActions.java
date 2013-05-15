@@ -6,6 +6,12 @@ import org.hibernate.mapping.List;
 
 
 
+/**
+ * This interface is created to allow access to a DB
+ * every object that s DB Should implement the following methods in order to allow basic operation on the DB
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public interface IDataBaseActions 
 {
 	/**

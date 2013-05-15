@@ -20,6 +20,15 @@ import com.sun.corba.se.impl.oa.toa.TOA;
 
 import sun.font.EAttribute;
 
+/**
+ * The File Record DAO class is a class that Access the DB to get the File Records from there
+ * it implements the IDataBaseActions interface in order to access the DB
+ * This class Read & Write the CourseRecord Objects to the Right table in the DB  
+ * Implemented as a Singeltone 
+ * 
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class FileRecordDAO implements IDataBaseActions
 {
 	private static FileRecordDAO instance = null;
@@ -34,7 +43,10 @@ public class FileRecordDAO implements IDataBaseActions
 		logger.info("File Record DAO was created"); 
 	}
 	
-	// Singleton FilesDAO 
+	/**
+	 * use lazy initialization,create the Object only when needed and return an instance to the course DAO OB
+	 * @return instance to CourseRecordDAO
+	 */
 		public static FileRecordDAO getInstance ()
 		{
 			if (FileRecordDAO.instance == null)
@@ -49,6 +61,11 @@ public class FileRecordDAO implements IDataBaseActions
 			logger.info("removeRecord was called");
 			int id = Integer.parseInt(itdoremove);				/*get the ID i want to remove*/ 
 			Session session = factory.openSession();
+			if (!session.isConnected())
+			{
+				factory = new  AnnotationConfiguration().configure().buildSessionFactory();
+				session = factory.openSession(); 
+			}
 			session.beginTransaction();
 			FileRecord found = (FileRecord) session.get(FileRecord.class, id);
 			if (found != null)
@@ -70,6 +87,11 @@ public class FileRecordDAO implements IDataBaseActions
 		 public int addRecord(Object toAdd)
 		 {
 			Session session = factory.openSession();
+			if (!session.isConnected())
+			{
+				factory = new  AnnotationConfiguration().configure().buildSessionFactory();
+				session = factory.openSession(); 
+			}
 			try {
 				logger.info("addRecord was called");
 				// creating a new session for adding products
@@ -90,23 +112,38 @@ public class FileRecordDAO implements IDataBaseActions
 		 }
 		
 		
-		//get the files records by condition and column
+		/**
+		 * Get the files records by condition and column
+		 * this method build an HQL Query that matches the column to a conditional value
+		 * 
+		 * @param String [] columns
+		 * @param String []conditials
+		 * @return list of results or null if fails
+		 */
 		public java.util.List getRecordsWhere(String[] columns,String[] conditials)
 		{
 			logger.info("getRecordsWhere was called");
 			Session session = factory.openSession();
+			if (!session.isConnected())
+			{
+				factory = new  AnnotationConfiguration().configure().buildSessionFactory();
+				session = factory.openSession(); 
+			}
 			StringBuilder builder = new StringBuilder();
 			builder.append("From FileRecord where ");
 			
+			// here i build the HQL Query dynamically according to the parameters i received from the user
 			for (int i =0; i< columns.length ; i++)
 			{
 				builder.append(columns[i] +" ='" + conditials[i] + "'");
 				if (i+1 <columns.length)
 					builder.append(" AND ");
 			}
+			// creating the Query
 			logger.info("Creating Query: "+builder.toString());
 			session.beginTransaction();
 			Query query = session.createQuery(builder.toString());
+			//Execute the query
 			java.util.List list = query.list();
 			session.close();
 			return  list;
@@ -120,6 +157,11 @@ public class FileRecordDAO implements IDataBaseActions
 			logger.info("getRecord was called with id: "+id);
 			int idToGet = Integer.parseInt(id);
 			Session session = factory.openSession();
+			if (!session.isConnected())
+			{
+				factory = new  AnnotationConfiguration().configure().buildSessionFactory();
+				session = factory.openSession(); 
+			}
 			session.beginTransaction();
 			FileRecord found = (FileRecord) session.get(FileRecord.class, idToGet);
 			if (found != null)
@@ -133,6 +175,11 @@ public class FileRecordDAO implements IDataBaseActions
 			return null;	
 		}
 		
+		/**
+		 * This function create a list of subjects (courses) from fileRecord list
+		 * @param filesList
+		 * @return ArrayList<String> subjectList or null if fails
+		 */
 		public ArrayList<String>  getSubjectList(java.util.List filesList)
 		{
 			logger.info("getSubjectList was called");
@@ -163,6 +210,11 @@ public class FileRecordDAO implements IDataBaseActions
 		{
 			logger.info("getAllRecords was called");
 			Session session = factory.openSession();
+			if (!session.isConnected())
+			{
+				factory = new  AnnotationConfiguration().configure().buildSessionFactory();
+				session = factory.openSession(); 
+			}
 			try {
 				session.beginTransaction();
 				java.util.List list = session.createQuery("from FileRecord").list();
@@ -186,6 +238,11 @@ public class FileRecordDAO implements IDataBaseActions
 		{
 			logger.info("updateRecord was called");
 			Session session = factory.openSession();
+			if (!session.isConnected())
+			{
+				factory = new  AnnotationConfiguration().configure().buildSessionFactory();
+				session = factory.openSession(); 
+			}
 			try {
 				session.beginTransaction();
 				session.update((FileRecord)toUpdate);
@@ -202,6 +259,13 @@ public class FileRecordDAO implements IDataBaseActions
 			return 0;
 		}
 
+		/**
+		 * This function return a list of objects which contains the subString in them
+		 * The function is case sensitive 
+		 * The Function searches in the File record Description, Trend, Uni &path
+		 * @param Substring to search
+		 * @return ArrayList<> of the results
+		 */
 		public ArrayList<FileRecord> searchFiles(String str)
 		{
 			if (str == null)

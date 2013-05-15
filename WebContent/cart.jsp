@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Log In</title>
+<title>Cart</title>
 <link rel="stylesheet" href="https://studentportal-jscapps.rhcloud.com/StudentData/css/style.css">
 </head>
 <body>

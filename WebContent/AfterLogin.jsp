@@ -42,7 +42,7 @@
 	opacity: .9;
 	-moz-transition: all .4s;"><a href="StudentData/history.jsp">Done- <%="   "+doneNum %> </a></p>
 	<menu:MenuTag menuItem1="Home Page" menuItem2="Upload " menuItem3="About" menuItem1Link="#" menuItem2Link="StudentData/upload.jsp" menuItem3Link="#"/>
-	<headLineTag:HeadLinePage headLine="My Cources"/>
+	<headLineTag:HeadLinePage headLine="My Courses"/>
 	<form  style="height: 0px;box-shadow:none;padding: 0px;position: absolute;top: 60px;left: 530px" method="get" action="https://studentportal-jscapps.rhcloud.com/StudentData/StudentData/search">
 	<input  type="submit" value="Search"/>
 	<input type="text"  name="substring" placeholder="Search" required/>

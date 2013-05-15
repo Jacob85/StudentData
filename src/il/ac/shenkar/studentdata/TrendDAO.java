@@ -7,7 +7,15 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
 import org.hibernate.mapping.List;
 
-
+/**
+ * The Trend DAO class is a class that Access the DB to get the Trends from there
+ * it implements the IDataBaseActions interface in order to access the DB
+ * This class Read & Write the Trends Objects to the Right table in the DB  
+ * Implemented as a Singleton 
+ * 
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class TrendDAO implements IDataBaseActions 
 {
 	private SessionFactory factory;
@@ -22,7 +30,10 @@ public class TrendDAO implements IDataBaseActions
 		logger.info("Trend DAO was created"); 
 	}
 	
-	//Singleton implementation
+	/**
+	 * use lazy initialization,create the Object only when needed and return an instance to the course DAO OB
+	 * @return instance to TrendDAO
+	 */
 	public static TrendDAO getInstance()
 	{
 		if (instance == null)

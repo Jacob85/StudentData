@@ -7,7 +7,7 @@
 			com.mysql.jdbc.Driver
 		</property>
 		<property name="hibernate.connection.url">
-			jdbc:mysql://sql2.freemysqlhosting.net:3306/sql27441
+			jdbc:mysql://sql2.freemysqlhosting.net:3306/sql27441?autoReconnect=true
 		</property>
 		<property name="hibernate.connection.username">sql27441</property>
 		<property name="hibernate.connection.password">eD6%sD1*</property>

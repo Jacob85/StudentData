@@ -2,6 +2,13 @@ package il.ac.shenkar.studentdata;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The User class is a class that represent Users
+ * According to this class the Hibernate knows to which table to write or read the objects from 
+ * 
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class User 
 {
 	private String email;
@@ -39,7 +46,10 @@ public class User
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
+	public void setEmail(String email) 
+	{
+		email = email.trim();
+		email = email.toLowerCase();
 		this.email = email;
 	}
 	public String getUserName() {
@@ -129,6 +139,11 @@ public class User
 	}
 
 
+	/**
+	 * check if a specific file in exists in the user file to view member
+	 * @param filename
+	 * @return boolean
+	 */
 	public boolean isExistInCart(String filename)
 	{
 		if (filename == null)
@@ -140,6 +155,10 @@ public class User
 		return false;
 	}
 
+	/**
+	 * Remove a file name from the user cart and add it to the files history
+	 * @param fileName
+	 */
 	public void removeFromCart(String fileName)
 	{
 		//remove the file from the file list
@@ -175,6 +194,10 @@ public class User
 		logger.info("Adding: " + fileName + " to File History");
 	}
 	
+	/**add the file name to the cart
+	 * if the file name is null or empty -> do nothing
+	 * @param fileName
+	 */
 	public void addToCart(String fileName) 
 	{
 		if (fileName == null )
@@ -196,6 +219,11 @@ public class User
 		
 	}
 	
+	/**
+	 * remove file name from the file history
+	 * 
+	 * @param fileName
+	 */
 	public void removeFromHistory(String fileName)
 	{
 		//remove the file from the list
@@ -219,11 +247,17 @@ public class User
 		return;
 	}
 	
+	/**
+	 * clear the file history
+	 */
 	public void clearHistory()
 	{
 		this.filesHistory = "none";
 	}
 	
+	/**
+	 * clear the cart move all of the records to the file history
+	 */
 	public void clearCart()
 	{
 		//check if the file history id empty

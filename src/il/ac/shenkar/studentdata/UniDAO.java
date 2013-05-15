@@ -8,6 +8,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
 
+/**
+ * The Uni  DAO class is a class that Access the DB to get the Unis from there
+ * it implements the IDataBaseActions interface in order to access the DB
+ * This class Read & Write the UniRecord Objects to the Right table in the DB  
+ * Implemented as a Singleton 
+ * 
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class UniDAO implements IDataBaseActions 
 {
 	private static UniDAO instance = null;
@@ -23,6 +32,10 @@ public class UniDAO implements IDataBaseActions
 		logger.info("UniDAO OB was created");
 	}
 	
+	/**
+	 * use lazy initialization,create the Object only when needed and return an instance to the course DAO OB
+	 * @return instance to UniDAO
+	 */
 	public static UniDAO getInstance ()
 	{
 		if (instance == null)

@@ -70,7 +70,6 @@ public class StudentDataController extends HttpServlet
 			try {
 				getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
 			} catch (ServletException e) {
-				// TODO Auto-generated catch block  
 				e.printStackTrace();
 			}
 		}
@@ -113,7 +112,7 @@ public class StudentDataController extends HttpServlet
 		case "upload.jsp":
 		{
 			try {
-				if (!IsSessionValidate(req, resp))
+				if (!isSessionValidate(req, resp))
 				{
 					getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
 					return;
@@ -126,7 +125,7 @@ public class StudentDataController extends HttpServlet
 				logger.info("register object attached to the Session OB \nforward to upload.jsp");
 				getServletContext().getRequestDispatcher("/upload.jsp").forward(req, resp);
 				return;
-			} catch (Exception e) {
+			} catch (ServletException e) {
 				logger.error("faild to forword to /upload.jsp");
 				return;
 			}
@@ -136,7 +135,7 @@ public class StudentDataController extends HttpServlet
 		case "cart.jsp":
 		{
 			try {
-				if (this.IsSessionValidate(req, resp))
+				if (this.isSessionValidate(req, resp))
 				{
 					HttpSession session = req.getSession();
 					User user = (User) session.getAttribute("user");										// get the user OB from the Session
@@ -153,7 +152,6 @@ public class StudentDataController extends HttpServlet
 				}
 			} catch (ServletException e) 
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				
 			}
@@ -166,7 +164,7 @@ public class StudentDataController extends HttpServlet
 		case "history.jsp":
 		{
 			try {
-				if (this.IsSessionValidate(req, resp))
+				if (this.isSessionValidate(req, resp))
 				{
 					HttpSession session = req.getSession();
 					User user = (User) session.getAttribute("user");									// get the user OB from the Session
@@ -183,21 +181,15 @@ public class StudentDataController extends HttpServlet
 				}
 			} catch (ServletException e) 
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return;
-		}
-		case "about.jsp":
-		{
-			//TODO: to return something to cadan
 			return;
 		}
 		case "homePage.jsp":
 		{
 			try
 			{
-				if (this.IsSessionValidate(req, resp))
+				if (this.isSessionValidate(req, resp))
 				{
 					//forword to After Login
 					logger.info("Forward to /AfterLogin.jsp");
@@ -217,7 +209,7 @@ public class StudentDataController extends HttpServlet
 		case "get_files=true":
 		{
 			try {
-				if (this.IsSessionValidate(req, resp))
+				if (this.isSessionValidate(req, resp))
 				{
 					// get the course name
 					logger.info("Calling the paser with uri: "+ req.getRequestURI());
@@ -269,11 +261,28 @@ public class StudentDataController extends HttpServlet
 					e.printStackTrace();
 				}
 			}
-			String filename = parser.getFilePath(req.getRequestURI());			// get the fool filename 
+			String filename = parser.getFilePath(req.getRequestURI());			// get the full filename 
 			File file =  FileSystemHandler.getInstande().getFile(filename);		// get the file from the file system
 		    resp.setContentLength((int)file.length());							// set the content length
-			// set the file's mime type
-		    resp.setContentType(Files.probeContentType(file.toPath()));
+		    resp.setHeader( "Content-Disposition", "filename=" + parser.getNameFromPath(filename) );
+		    // set the file's mime type
+		    if (file.getPath().endsWith(".doc") || file.getPath().endsWith(".docx") )
+		    {
+		    	resp.setContentType("application/msword");
+		    }
+		    else if (file.getPath().endsWith(".ppt") || file.getPath().endsWith(".pptx"))
+		    {
+		    	resp.setContentType("application/vnd.ms-powerpoint");
+		    }
+		    else if (file.getPath().endsWith(".pdf"))
+		    {
+		    	resp.setContentType("application/pdf");
+		    }
+		    else
+		    {
+		    	resp.setContentType(Files.probeContentType(file.toPath()));
+		    }
+		   // resp.setContentType("application/octet-stream");
 		    
 		    //send the file to the client
 		    FileInputStream in = new FileInputStream(file);
@@ -292,19 +301,18 @@ public class StudentDataController extends HttpServlet
 		}
 		case "search":
 		{
-			/*if (!IsSessionValidate(req, resp))
+			if (!isSessionValidate(req, resp))
 			{
 				//mean the user need t login first. the Session is timeout
 				logger.info("Session timeout or new session, forword the user to login");
 				getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
 				return;
-			}*/
+			}
 			ArrayList<FileRecord> searchResults = FileRecordDAO.getInstance().searchFiles(req.getParameter("substring"));
 			req.setAttribute("searchResults", searchResults);
 			logger.info("found: "+searchResults.size()+"for the sub string: "+req.getParameter("substring"));
 			getServletContext().getRequestDispatcher("/FilesPage.jsp").forward(req, resp);
 			return;
-			//TODO: to forward the request to some where;
 		}
 		default:
 		{
@@ -339,7 +347,6 @@ public class StudentDataController extends HttpServlet
 				else
 				{
 					// mean the user logged in successfuly and we need to get the user data from the DB
-					//TODO to pass cadan the object and the data he need in order to create the user UI
 					String[] columns = {"university", "trend","year"};
 					String[] conditionls = {user.getUniversity(), user.getTrend(), user.getYear()};
 					java.util.List filesList = FileRecordDAO.getInstance().getRecordsWhere(columns, conditionls);
@@ -383,7 +390,6 @@ public class StudentDataController extends HttpServlet
 			}
 			logger.info("User does not exists in the DB, Creating new User");
 			// the user entered his details and we need to register him to the system
-			//TODO all of the validation of the form are performed in the client side, here i do not dial with it
 			User newUser = new User();
 			newUser.setEmail(req.getParameter("email"));
 			newUser.setSubject("none");
@@ -402,9 +408,7 @@ public class StudentDataController extends HttpServlet
 				//get the current session and place the user OB to the current session 
 				HttpSession userSession = req.getSession();
 				userSession.setAttribute("user", newUser);
-				//TODO here we can determine the Session parameters like timeout...
 				
-				//TODO get all of the user document and pass it to the client side
 				java.util.List<String> filesList = parser.getFileList(newUser.getFilesToView());
 				userSession.setAttribute("cart",filesList);
 				
@@ -597,7 +601,7 @@ public class StudentDataController extends HttpServlet
 			break;
 		}
 	}
-	public boolean IsSessionValidate(HttpServletRequest req, HttpServletResponse resp)
+	private boolean isSessionValidate(HttpServletRequest req, HttpServletResponse resp)
 	{
 		//get the session
 		HttpSession session = req.getSession();
@@ -611,7 +615,7 @@ public class StudentDataController extends HttpServlet
 		return true;
 	}
 	
-	public void cartTransaction(HttpServletRequest req, HttpServletResponse resp,Cart direction) throws ServletException, IOException
+	private void cartTransaction(HttpServletRequest req, HttpServletResponse resp,Cart direction) throws ServletException, IOException
 	{
 		//get the session
 		HttpSession session = req.getSession();

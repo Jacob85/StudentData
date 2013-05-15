@@ -6,6 +6,14 @@ import java.io.File;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 
+/**
+ * The File System Handler Class is a class that access the OS File System and allow us to read or write files
+ * The class build the directory Hierarchy to the file path dynamically 
+ * Implemented as a Singelton
+ * 
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class FileSystemHandler
 {
 	private static FileSystemHandler instance;
@@ -21,7 +29,10 @@ public class FileSystemHandler
 	}
 	
 	
-	//Singleton File System Handler
+	/**
+	 * use lazy initialization,create the Object only when needed and return an instance to the course DAO OB
+	 * @return instance to FileSystemHandler
+	 */
 	public static FileSystemHandler getInstande()
 	{
 		if (FileSystemHandler.instance == null)
@@ -31,6 +42,13 @@ public class FileSystemHandler
 	
 	
 	// should get path that look like this /<university name>/<Trend name>/<year name>/<course name>
+	/**
+	 * The Save File method sabes the file to the file System
+	 * it brakes the path into directories and make sure they all exists -> if not it creates them dynamically
+	 * @param file - to save
+	 * @param path - the file path
+	 * @return 1 if success, 0 if fails
+	 */
 	public int saveFile(FileItem file, String path)
 	{
 		logger.info("saveFile was called");

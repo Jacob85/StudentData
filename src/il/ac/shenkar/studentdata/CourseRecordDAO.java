@@ -8,6 +8,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
 
+/**
+ * The Course Record DAO class is a class that Access the DB to get the courses from there
+ * it implements the IDataBaseActions interface in order to access the DB
+ * This class Read & Write the CourseRecord Objects to the Right table in the DB  
+ * Implemented as a Singeltone 
+ * 
+ * @author Jacob, Cadan & Shimon
+ *
+ */
 public class CourseRecordDAO implements IDataBaseActions 
 {
 	private static CourseRecordDAO instance = null;
@@ -22,6 +31,10 @@ public class CourseRecordDAO implements IDataBaseActions
 		logger.info("CourseRecordDAO OB was created");
 	}
 	
+	/**
+	 * use lazy initialization,create the Object only when needed and return an instance to the course DAO OB
+	 * @return instance to CourseRecordDAO
+	 */
 	public static CourseRecordDAO getInstance()
 	{
 		if (instance == null)
@@ -34,11 +47,16 @@ public class CourseRecordDAO implements IDataBaseActions
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
 	@Override
 	public int addRecord(Object toAdd) 
 	{
 		Session session = factory.openSession();
+		if (!session.isConnected())
+		{
+			factory = new  AnnotationConfiguration().configure().buildSessionFactory();
+			session = factory.openSession(); 
+		}
 		try {
 			logger.info("addRecord was called");
 			// creating a new session for adding products
@@ -69,6 +87,11 @@ public class CourseRecordDAO implements IDataBaseActions
 	{
 		logger.info("getAllRecords was called");
 		Session session = factory.openSession();
+		if (!session.isConnected())
+		{
+			factory = new  AnnotationConfiguration().configure().buildSessionFactory();
+			session = factory.openSession(); 
+		}
 		try {
 			session.beginTransaction();
 			List list = session.createQuery("from CourseRecord").list();
