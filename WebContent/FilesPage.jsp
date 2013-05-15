@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
-<link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
+<link rel="stylesheet" href="https://studentportal-jscapps.rhcloud.com/StudentData/css/style.css">
 </head>
 <body>
 <%
@@ -92,10 +92,10 @@
 		  out.write(file.getDescription());
 		  out.write("</td>");
 		  out.write("<td>");
-		  out.write("<a title=\"Press TODO \" class=\"tooltip\" href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/add_to_cart=true" +"\""+"><img src=\"http://localhost:8080/StudentData/img/add2.png\" /></a>");
+		  out.write("<a title=\"Press TODO \" class=\"tooltip\" href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/add_to_cart=true" +"\""+"><img src=\"https://studentportal-jscapps.rhcloud.com/StudentData/img/add2.png\" /></a>");
 		  out.write("</td>");
 		  out.write("<td>");
-		  out.write("<a title=\"Press to download the file\" class=\"tooltip\" href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/download" +"\""+"><img src=\"http://localhost:8080/StudentData/img/download.png\" /></a>");
+		  out.write("<a title=\"Press to download the file\" class=\"tooltip\" href=\""+urlPrefix+"/StudentData/"+file.getPath()+"/download" +"\""+"><img src=\"https://studentportal-jscapps.rhcloud.com/StudentData/img/download.png\" /></a>");
 		  out.write("</td>");
 		  out.write("</tr>");
 	  }

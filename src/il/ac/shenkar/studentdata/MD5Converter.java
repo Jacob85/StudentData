@@ -7,10 +7,15 @@ import org.apache.log4j.Logger;
 
 
 
+/**
+ * @author Jacob 
+ *
+ */
 public class MD5Converter 
 {
+
 	private static Logger logger;
-	
+
 	public MD5Converter()
 	{	
 		logger = Logger.getLogger(MD5Converter.class.getName());

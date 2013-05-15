@@ -9,7 +9,7 @@
 		<h3 style="color: #4889C2;font-size: 25px">OOPS!!! An exception has occurred</h3>
 	<p style="left:50%;margin-left: 22px;color: #4889C2;opacity:.8">To go to login page again, click Login Page button</p>
 		</div>
-		<form name="f2" action="http://localhost:8080/StudentData/Login.jsp">
+		<form name="f2" action="https://studentportal-jscapps.rhcloud.com/StudentData/Login.jsp">
 			<input type="submit" name="button1" value="Login Page" class="button">
 		</form>
 	</body>

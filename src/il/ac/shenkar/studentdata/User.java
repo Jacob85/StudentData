@@ -149,7 +149,9 @@ public class User
 		this.filesToView = filesToView.replace("%%","%");
 		
 		if (filesToView.startsWith("%"))
-			filesToView = filesToView.replaceFirst("%", "");
+			filesToView = filesToView.replaceFirst("%", "");					/*remove the first char of % from the string*/
+		if (filesToView.endsWith("%"))
+			filesToView = filesToView.substring(0,filesToView.length()-1);		/*remove the last char of % from the string*/
 		
 		if (this.filesToView.isEmpty())
 			filesToView = "none";
@@ -205,6 +207,11 @@ public class User
 		
 		if (filesHistory.startsWith("%"))
 			filesHistory = filesHistory.replaceFirst("%", "");
+		if (filesHistory.startsWith(" %"))
+			filesHistory = filesHistory.replaceFirst(" %", "");
+		if (filesHistory.endsWith("%"))
+			filesHistory = filesHistory.substring(0, filesHistory.length()-1);
+		
 		
 		if (this.filesHistory.isEmpty())
 			filesHistory = "none";

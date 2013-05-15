@@ -59,7 +59,7 @@
   else
   {
 	  out.write("<a style=\"margin-left: 295px;\" href=\"StudentData/clear_cart=true\">Remove all</a> <br><br>");
-		String subjectUrl="http://localhost:8080/StudentData/StudentData/";
+		String subjectUrl="https://studentportal-jscapps.rhcloud.com/StudentData/StudentData/";
 		String removeActionString="/remove_from_cart=true";
 		for(String item : cartList)
 		{
@@ -67,8 +67,8 @@
 			String itemName=file.getName();
 			out.write("<tr>"
 				    +"<td ><a href=\""+subjectUrl+item+"\"" +">"+itemName+"</a></td> ");
-			out.write("<td ><a  href=\""+subjectUrl+item +"/download\">"+"<img title=\"Press to download the file\" class=\"tooltip\" src=\"http://localhost:8080/StudentData/img/download.png\" />"+"</a></td>");
-			out.write("<td ><a title=\"Press to mark as done\" class=\"tooltip\" href=\""+subjectUrl+item +removeActionString+"\""+">"+"<img src=\"http://localhost:8080/StudentData/img/done.png\" />"+"</a></td> </tr>");
+			out.write("<td ><a  href=\""+subjectUrl+item +"/download\">"+"<img title=\"Press to download the file\" class=\"tooltip\" src=\"https://studentportal-jscapps.rhcloud.com/StudentData/img/download.png\" />"+"</a></td>");
+			out.write("<td ><a title=\"Press to mark as done\" class=\"tooltip\" href=\""+subjectUrl+item +removeActionString+"\""+">"+"<img src=\"https://studentportal-jscapps.rhcloud.com/StudentData/img/done.png\" />"+"</a></td> </tr>");
 			
 		}
 		out.write("</table>");

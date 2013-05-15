@@ -45,8 +45,8 @@ import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 public class StudentDataController extends HttpServlet 
 {
 	final  String localPath = "C:\\Users\\Jacob\\workspaceEE\\StudentData\\Files\\";
-	final String prefix = "http://localhost:8080/StudentData/StudentData/";
-	final String prefixTest="http://localhost:8080/StudentData/StudentData/";
+	final String prefix = "https://studentportal-jscapps.rhcloud.com/StudentData/StudentData/";
+	final String prefixTest="https://studentportal-jscapps.rhcloud.com/StudentData/StudentData/";
 	static Logger logger = Logger.getLogger(StudentDataController.class.getName());
 	private RequestParser parser;
 	private FileItemFactory factory;
@@ -526,7 +526,14 @@ public class StudentDataController extends HttpServlet
 			try {
 				
 				ServletFileUpload upload = new ServletFileUpload(factory);
-				java.util.List<FileItem> items = upload.parseRequest((RequestContext) req);
+				java.util.List<FileItem> items = upload.parseRequest( req);
+				
+				String fileName = items.get(0).getName();
+				if (fileName.contains("%"))
+				{
+					logger.error("File name format is unsupported: "+ fileName);
+					throw new FileUploadException("File name Not Supported");
+				}
 				
 				//create the file
 				FileRecord record = new FileRecord();
@@ -569,18 +576,6 @@ public class StudentDataController extends HttpServlet
 					currSession.setAttribute("history", filesHistory);
 					currSession.setAttribute("prefix", prefixTest);
 
-					
-					/*//mean the file should be in the user files so we will update it
-					//get the files list from the Session
-					java.util.List filesList = (java.util.List) session.getAttribute("userFiles");
-					//add the current file to the files list
-					filesList.add(record);
-					ArrayList<String> subjectList = FileRecordDAO.getInstance().getSubjectList(filesList);
-					
-					//attached the object i modified to the session again
-					session.setAttribute("subjects", subjectList);
-					session.setAttribute("userFiles", filesList);
-				*/
 					//Forward the request to after login again
 					req.getServletContext().getRequestDispatcher("/AfterLogin.jsp").forward(req, resp);
 					return;

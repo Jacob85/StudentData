@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
-<link rel="stylesheet" href="http://localhost:8080/StudentData/css/style.css">
+<link rel="stylesheet" href="https://studentportal-jscapps.rhcloud.com/StudentData/css/style.css">
 </head>
 <body>
 <%
@@ -59,7 +59,7 @@
   else
   {
 	  out.write("<a style=\"margin-left: 295px;\" href=\"StudentData/clear_history=true\">Remove all</a> <br><br>");
-		String subjectUrl="http://localhost:8080/StudentData/StudentData/";
+		String subjectUrl="https://studentportal-jscapps.rhcloud.com/StudentData/StudentData/";
 		String removeActionString="/remove_from_historyt=true";
 		for(String item : historylist)
 		{
@@ -67,8 +67,8 @@
 			String itemName=file.getName();
 			out.write("<tr style='border:none'>"
 				    +"<td ><a href=\""+subjectUrl+item+"\"" +">"+itemName+"</a></td> ");
-			out.write("<td ><a title=\"Press to download the file\" class=\"tooltip\" href=\""+subjectUrl+item +"/download\">"+"<img src=\"http://localhost:8080/StudentData/img/download.png\" />"+"</a></td>");
-			out.write("<td ><a title=\"Press to remove the file\" class=\"tooltip\" href=\""+subjectUrl+item+removeActionString+"\""+">"+"<img src=\"http://localhost:8080/StudentData/img/remove.png\" />"+"</a></td> </tr>");
+			out.write("<td ><a title=\"Press to download the file\" class=\"tooltip\" href=\""+subjectUrl+item +"/download\">"+"<img src=\"https://studentportal-jscapps.rhcloud.com/StudentData/img/download.png\" />"+"</a></td>");
+			out.write("<td ><a title=\"Press to remove the file\" class=\"tooltip\" href=\""+subjectUrl+item+removeActionString+"\""+">"+"<img src=\"https://studentportal-jscapps.rhcloud.com/StudentData/img/remove.png\" />"+"</a></td> </tr>");
 		}
   }
   %>
