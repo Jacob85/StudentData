@@ -327,11 +327,21 @@ public class StudentDataController extends HttpServlet
 		} catch (IOException e)
 		{
 			e.printStackTrace();
+			try {
+				getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
+			} catch (ServletException | IOException e1) {
+				e1.printStackTrace();
+			}
 			logger.info("IOException throw from: "+ e.getCause());
 			return;
 		}catch (ServletException e) 
 		{
 			e.printStackTrace();
+			try {
+				getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
+			} catch (ServletException | IOException e1) {
+				e1.printStackTrace();
+			}
 			logger.info("ServletException throw from: "+ e.getCause());
 			return;
 		}
@@ -619,15 +629,25 @@ public class StudentDataController extends HttpServlet
 			break;
 		}
 		
-		} catch (ServletException e) 
+		} catch (IOException e)
 		{
 			e.printStackTrace();
-			logger.info("ServletException throw from: "+ e.getCause());
-			return;
-		}catch (IOException e)
-		{
-			e.printStackTrace();
+			try {
+				getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
+			} catch (ServletException | IOException e1) {
+				e1.printStackTrace();
+			}
 			logger.info("IOException throw from: "+ e.getCause());
+			return;
+		}catch (ServletException e) 
+		{
+			e.printStackTrace();
+			try {
+				getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
+			} catch (ServletException | IOException e1) {
+				e1.printStackTrace();
+			}
+			logger.info("ServletException throw from: "+ e.getCause());
 			return;
 		}
 	}
