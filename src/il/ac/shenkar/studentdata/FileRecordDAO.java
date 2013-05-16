@@ -16,6 +16,8 @@ import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.mapping.List;
 
+import antlr.StringUtils;
+
 import com.sun.corba.se.impl.oa.toa.TOA;
 
 import sun.font.EAttribute;
@@ -279,7 +281,7 @@ public class FileRecordDAO implements IDataBaseActions
 			
 			for (FileRecord record: allResults)
 			{
-				if (record.getDescription().contains(str) || record.getTrend().contains(str) || record.getSubject().contains(str) || record.getPath().contains(str))
+				if (containsIgnoreCase(record.getDescription(), str) ||containsIgnoreCase(record.getTrend(), str) || containsIgnoreCase(record.getSubject(), str) ||containsIgnoreCase(record.getPath(), str))
 				{
 					relevantResults.add(record);
 					logger.info("Adding "+record.getPath() + " to the returned Relevand list");
@@ -287,6 +289,22 @@ public class FileRecordDAO implements IDataBaseActions
 			}
 			logger.info("Returned List with "+relevantResults.size()+" File Records");
 			return relevantResults;
+			
+		}
+		
+		private boolean containsIgnoreCase(String source, String substring)
+		{
+			if (source == null || substring == null)
+				return false;
+			if (source.isEmpty() || substring.isEmpty())
+				return false;
+			
+			// to lower the strings and compare them
+			String newSource = source.toLowerCase();
+			String newSubstring = substring.toLowerCase();
+			
+			return newSource.contains(newSubstring);
+			
 			
 		}
 

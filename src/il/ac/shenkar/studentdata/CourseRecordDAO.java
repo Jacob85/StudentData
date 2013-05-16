@@ -17,7 +17,7 @@ import org.hibernate.classic.Session;
  * @author Jacob, Cadan & Shimon
  *
  */
-public class CourseRecordDAO implements IDataBaseActions 
+public class CourseRecordDAO implements IDataBaseActions  
 {
 	private static CourseRecordDAO instance = null;
 	private SessionFactory factory;

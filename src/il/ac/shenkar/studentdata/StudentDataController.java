@@ -60,7 +60,7 @@ public class StudentDataController extends HttpServlet
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 	{
 		
 		
@@ -71,8 +71,12 @@ public class StudentDataController extends HttpServlet
 				getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
 			} catch (ServletException e) {
 				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
+		try {
+			
 		
 		switch (reqAction)
 		{
@@ -319,16 +323,30 @@ public class StudentDataController extends HttpServlet
 			break;
 		}
 		}
+		
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+			logger.info("IOException throw from: "+ e.getCause());
+			return;
+		}catch (ServletException e) 
+		{
+			e.printStackTrace();
+			logger.info("ServletException throw from: "+ e.getCause());
+			return;
+		}
 	}
 
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException 
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 	{
 		
 		
 		String reqAction = parser.getRequestedAction(req.getRequestURI());
-		
+		try {
+			
+
 		switch (reqAction) 
 		{
 		case "loginto":
@@ -599,6 +617,18 @@ public class StudentDataController extends HttpServlet
 
 		default:
 			break;
+		}
+		
+		} catch (ServletException e) 
+		{
+			e.printStackTrace();
+			logger.info("ServletException throw from: "+ e.getCause());
+			return;
+		}catch (IOException e)
+		{
+			e.printStackTrace();
+			logger.info("IOException throw from: "+ e.getCause());
+			return;
 		}
 	}
 	private boolean isSessionValidate(HttpServletRequest req, HttpServletResponse resp)
